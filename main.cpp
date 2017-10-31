@@ -1,37 +1,24 @@
 #include <iostream>
 #include <string>
-#include <cstring>
+#include <boost/tokenizer.hpp>
 
 using namespace std;
-void Tokenizer(string cmd){
-	char Delimiters[] = "&&,||,;";
-	char *Token[20];
-	int i = 1;
-	
-	/*
+using namespace boost;
 
-	Token[0] = strtok(Delimiters,cmd);
-	while( Token[i] != null){
-		Token[i] = strtok(cmd, Delimiters);
-		++i;
-	}
-	
-	for(int j = 0; j < i;++j){
-		cout << Token[j] << endl;
-	}
-*/
-	
+int main(int, char**)
+{
+    string input;
+    cout << "$";
+    getline(cin, input);
+
+    char_separator<char> sep("&&");
+    tokenizer<char_separator<char> > tokens(input, sep);
+
+     for ( tokenizer<char_separator<char> >::iterator it = tokens.begin();
+         it != tokens.end();
+         ++it)
+   {
+      cout << *it << "." << endl;
+   }
 }
 
-
-
-int main() {
-	
-	char input[256]
-	cout << "$ ";
-	getline(cin, input);
-	cout << endl;
-	//cout << cmd << endl;
-	Tokenizer(input);
-	return 0;
-}
