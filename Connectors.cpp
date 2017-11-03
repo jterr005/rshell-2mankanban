@@ -1,5 +1,7 @@
 #include <iostream>
+#include <string>
 #include "Connectors.h"
+#include "Executables.h"
 
 using namespace std;
 
@@ -14,12 +16,13 @@ Connectors::Connectors(string input){
 		this->cntr = ";";
 	}
 	else{
-		cout << "this is now a connector" << endl;
+		cout << "this is not a connector" << endl;
 	}
 		this->leftChild = NULL;
 		this->rightChild = NULL;
 		
 }
-String Connectors::type(Shell* node){
-	return node->cntr;
+
+string Connectors::type(){
+	return cntr;
 }

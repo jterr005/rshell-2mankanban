@@ -12,10 +12,9 @@
 using namespace std;
 using namespace boost;
 
-int main(int, char**){
-    Shell Tree;
-    Shell* root = NULL;
-
+int main(int, char**)
+{
+    Shell* fExe = NULL;
     string input;
     cout << "$";
     getline(cin, input);
@@ -32,12 +31,11 @@ int main(int, char**){
 	it != tokens.end();++it){
 		cout << *it;
 		if(*it == "&" || *it == "|" || *it == ";"){
-			cout << " CTR ";
-			string input = *it;
-			Connectors* Node = new Connectors(input);
-			cout << "NODE created";
-			Tree.insert(root,Node);
-			root = Node;
+				cout << " CTR ";
+				string input = *it;
+				Connectors* Node = new Connectors(input);
+				cout << "NODE created";
+				fExe->insert(Node);
 			if(*it == "&" || *it == "|"){
 				++it;	
 			}	
@@ -47,15 +45,16 @@ int main(int, char**){
 			string input = *it;
 			Executables* Node = new Executables(input);
 			cout << "NODE created";
-			if(root == NULL){
-				root = Node;
-			}
-			else{
-				Tree.insert(root,Node);
-			}
+				if(fExe == NULL){
+					fExe = Node;
+				}
+				else{
+				fExe->insert(Node);
+				}
 		}
 		cout << endl;
 	}
-    }
+return 0;
 }
+
 

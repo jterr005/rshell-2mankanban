@@ -2,18 +2,18 @@
 #define CONNECTORS_H
 
 #include "shell.h"
+#include <string>
 
-using namespace std;
-
-class Connectors {
+class Connectors: public Shell {
         private:
-		string cntr;
+		std::string cntr;
                 Shell* leftChild;
                 Shell* rightChild;
         public:
                 //void execute(string);
-		Connectors(string input);
-		string type(Shell* node);
+		Connectors(std::string input);
+		std::string type();
+
 };
 #endif
 

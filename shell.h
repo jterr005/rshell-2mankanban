@@ -1,7 +1,6 @@
 #ifndef SHELL_H
 #define SHELL_H
-
-using namespace std;
+#include <string>
 
 class Shell {
 	protected:
@@ -12,10 +11,10 @@ class Shell {
         public:
 		Shell();
                // virtual void execute() = 0;
-               	void displayAssist(Shell*);
-                virtual string type(Shell*) = 0;
+               	//void displayAssist(Shell*);
                 //bool evaluator();
-                void insert(Shell* root, Shell* node);
+                void insert(Shell* Node);
+		virtual std::string type() = 0;
                 //void display();
 
 };

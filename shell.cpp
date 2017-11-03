@@ -1,5 +1,8 @@
 #include <iostream>
+#include <string>
 #include "shell.h"
+#include "Connectors.h"
+#include "Executables.h"
 
 using namespace std;
 
@@ -10,15 +13,20 @@ Shell::Shell(){
 
 //bool Shell::evaluator() {}
 
-void Shell::insert(Shell* root, Shell* Node) {
-	if(type(Node) == "||" || type(Node) = "&&" || type(Node) = ";"){
-		root->parent = Node;
-		Node->leftChild = root;
+
+void Shell::insert( Shell* Node) {
+	cout << " entered insert function";
+	string type = Node->type();
+	 if(type == "&" || type  == "|" || type == ";"){
+		cout << " connector statement";
 	}
 	else{
-		root->rightChild = Node;
+		cout << " arg statement";
 	}
+	
 }
+
+/*
 void Shell::displayAssist(Shell* curr) {
         if(curr) {
                 displayAssist(curr->left);
@@ -26,4 +34,4 @@ void Shell::displayAssist(Shell* curr) {
  		cout << type(curr) << endl;               
                  displayAssist(curr->right);
 	                                                                                                       return;
-}		
+}*/		

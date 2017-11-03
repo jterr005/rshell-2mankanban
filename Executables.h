@@ -2,16 +2,16 @@
 #define EXECUTABLES_H
 
 #include "shell.h"
+#include <string>
 
-using namespace std;
 
-class Executables {
+class Executables : public Shell {
         protected:
-                string argmnt;
+                std::string argmnt;
         public:
-		Executables(string input);
-                void execute(string);
-		string type(Shell* node);
+		Executables(std::string input);
+               // void execute(string);
+		std::string type();
 
 };
 #endif
