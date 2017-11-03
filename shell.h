@@ -8,11 +8,12 @@ class Shell {
 		char prompt = "$";
 		bool success = false;
 		Shell* parent = NULL;
-	public:
-		virtual void execute() = 0;
-		bool evaluator();
-		void insert(Shell*);
-		void display();
-	
+        public:
+                virtual void execute() = 0;
+                bool evaluator();
+                void insert(Shell*);
+                void display();
+
 };
 #endif
+
