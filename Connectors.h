@@ -6,13 +6,13 @@
 using namespace std;
 
 class Connectors {
-        protected:
+        private:
 		string cntr;
                 Shell* leftChild;
                 Shell* rightChild;
         public:
                 void execute(string);
-
+		Connectors(string input);
 };
 #endif
 

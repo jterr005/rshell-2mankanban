@@ -15,12 +15,32 @@ int main(int, char**)
     cout << "$";
     getline(cin, input);
 
-    char_separator<char> sep("","|&;",boost::keep_empty_tokens);
+    char_separator<char> sep("","|&;");
     tokenizer<char_separator<char> > tokens(input,sep);
-
+/*
     for(tokenizer<char_separator<char> >::iterator it = tokens.begin();
     it != tokens.end();++it){
-      cout << *it << endl;
-   }
+      cout << *it << " ";
+    }
+*/	
+	for(tokenizer<char_separator<char> >::iterator it = tokens.begin();
+	it != tokens.end();++it){
+		cout << *it;
+		if(*it == "&" || *it == "|" || *it == ";"){
+				cout << " CTR ";
+				Connectors* Node = new Connectors(*it);
+				//insert(Node);
+			if(*it == "&" || *it == "|"){
+				++it;	
+			}	
+		}
+		else{
+			cout << " ARRG ";
+			Executables* Node = new Executables(*it);
+				//insert(Node);
+		}
+		cout << endl;
+	}
+
 }
 
