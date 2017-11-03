@@ -5,14 +5,16 @@ using namespace std;
 
 class Shell {
 	protected:
-		char prompt = "$";
-		bool success = false;
+		char prompt;
+		bool success;
 		Shell* parent = NULL;
+		
         public:
-                virtual void execute() = 0;
-                bool evaluator();
-                void insert(Shell*);
-                void display();
+		Shell();
+                //virtual void execute() = 0;
+                //bool evaluator();
+                //void insert(Shell*);
+                //void display();
 
 };
 #endif

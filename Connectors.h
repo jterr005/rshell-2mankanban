@@ -1,7 +1,7 @@
 #ifndef CONNECTORS_H
 #define CONNECTORS_H
 
-#include "Shell.h"
+#include "shell.h"
 
 using namespace std;
 
@@ -11,7 +11,7 @@ class Connectors {
                 Shell* leftChild;
                 Shell* rightChild;
         public:
-                void execute(string);
+                //void execute(string);
 		Connectors(string input);
 };
 #endif

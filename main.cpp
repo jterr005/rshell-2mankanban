@@ -5,12 +5,17 @@
 #include <boost/foreach.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/iter_find.hpp>
+#include "shell.h"
+#include "Connectors.h"
+#include "Executables.h"
 
 using namespace std;
 using namespace boost;
 
-int main(int, char**)
-{
+int main(int, char**){
+    Shell Tree;
+    Shell* root = NULL;
+
     string input;
     cout << "$";
     getline(cin, input);
@@ -28,16 +33,20 @@ int main(int, char**)
 		cout << *it;
 		if(*it == "&" || *it == "|" || *it == ";"){
 				cout << " CTR ";
-				Connectors* Node = new Connectors(*it);
-				//insert(Node);
+				string input = *it;
+				Connectors* Node = new Connectors(input);
+				cout << "NODE created";
+				//Tree.insert(Node);
 			if(*it == "&" || *it == "|"){
 				++it;	
 			}	
 		}
 		else{
 			cout << " ARRG ";
-			Executables* Node = new Executables(*it);
-				//insert(Node);
+			string input = *it;
+			Executables* Node = new Executables(input);
+			cout << "NODE created";
+				//Tree.insert(Node);
 		}
 		cout << endl;
 	}

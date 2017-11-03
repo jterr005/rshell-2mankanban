@@ -5,9 +5,18 @@ using namespace std;
 
 Connectors::Connectors(string input){
 	if(input == "&"){
-		this->cntr = "&&"
+		this->cntr = "&&";
+	}
+	else if(input == "|"){
+		this->cntr = "||";
+	}
+	else if(input == ";"){
+		this->cntr = ";";
+	}
+	else{
+		cout << "this is now a connector" << endl;
+	}
 		this->leftChild = NULL;
 		this->rightChild = NULL;
-		this->parent = NULL;
-		this->prompt = "$";
-		this->Qsuccess = false;
+		
+}
