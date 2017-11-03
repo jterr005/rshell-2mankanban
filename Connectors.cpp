@@ -18,8 +18,6 @@ Connectors::Connectors(string input){
 	else{
 		cout << "this is not a connector" << endl;
 	}
-		this->leftChild = NULL;
-		this->rightChild = NULL;
 		
 }
 

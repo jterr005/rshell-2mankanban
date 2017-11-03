@@ -9,19 +9,41 @@ using namespace std;
 Shell::Shell(){
         this->prompt = '$';
         this->success = false;
+	this->parent = NULL;
+	this->leftChild = NULL;
+	this->rightChild = NULL;
 }
 
 //bool Shell::evaluator() {}
 
 
-void Shell::insert( Shell* Node) {
+void Shell::insert(Shell* fExe, Shell* Node){
 	cout << " entered insert function";
+	
 	string type = Node->type();
-	 if(type == "&" || type  == "|" || type == ";"){
+	 if(type == "&&" || type  == "||" || type == ";"){
 		cout << " connector statement";
+		if(this->parent == NULL){
+		cout << " IF ";
+			this->parent = Node;
+			Node->leftChild = fExe;
+		}
+		else{
+			cout << " ELSE";
+			Shell* temp = fExe;
+			while(temp->parent != NULL){
+			temp = temp->parent;
+			}
+			temp->parent = Node;
+			Node->leftChild = temp;
+		}
+
 	}
 	else{
 		cout << " arg statement";
+		this->rightChild = Node;
+		Node->parent = fExe;
+		
 	}
 	
 }

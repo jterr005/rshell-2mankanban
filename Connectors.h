@@ -7,8 +7,6 @@
 class Connectors: public Shell {
         private:
 		std::string cntr;
-                Shell* leftChild;
-                Shell* rightChild;
         public:
                 //void execute(string);
 		Connectors(std::string input);

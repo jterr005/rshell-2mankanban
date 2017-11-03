@@ -35,7 +35,7 @@ int main(int, char**)
 				string input = *it;
 				Connectors* Node = new Connectors(input);
 				cout << "NODE created";
-				fExe->insert(Node);
+				fExe->insert(fExe,Node);
 			if(*it == "&" || *it == "|"){
 				++it;	
 			}	
@@ -47,9 +47,10 @@ int main(int, char**)
 			cout << "NODE created";
 				if(fExe == NULL){
 					fExe = Node;
+					cout << " root created";
 				}
 				else{
-				fExe->insert(Node);
+				fExe->insert(fExe,Node);
 				}
 		}
 		cout << endl;
