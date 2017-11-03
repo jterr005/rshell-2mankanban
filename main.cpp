@@ -12,6 +12,7 @@
 using namespace std;
 using namespace boost;
 
+<<<<<<< HEAD
 int main(int, char**){
     Shell Tree;
     Shell* root = NULL;
@@ -50,6 +51,6 @@ int main(int, char**){
 		}
 		cout << endl;
 	}
-
+    }
 }
 
