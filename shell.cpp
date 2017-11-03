@@ -41,19 +41,57 @@ void Shell::insert(Shell* fExe, Shell* Node){
 	}
 	else{
 		cout << " arg statement";
-		this->rightChild = Node;
-		Node->parent = fExe;
+		Shell* temp = fExe;
+		while(temp->parent != NULL){
+		temp = temp->parent;
+		}
+		temp->rightChild = Node;
+		Node->parent = temp;
 		
 	}
 	
 }
 
-/*
-void Shell::displayAssist(Shell* curr) {
-        if(curr) {
-                displayAssist(curr->left);
-	 //POSSIBLE ERROR FROM COUT                
- 		cout << type(curr) << endl;               
-                 displayAssist(curr->right);
-	                                                                                                       return;
-}*/		
+void Shell::display(Shell* fExe){
+	Shell* temp = fExe;
+	//cout << temp->type() << temp->parent->type() << temp->parent->rightChild->type();
+
+	
+	if(fExe->parent == NULL){
+		Inorder(fExe);
+	}
+	else{
+		Shell* temp = fExe;
+		while(temp->parent != NULL){
+		temp = temp->parent;
+		}
+		Inorder(temp);
+	}
+	
+
+}
+void Shell::Inorder(Shell* Node){
+	if(Node != NULL){
+		Inorder(Node->leftChild);
+		cout << " " <<Node->type() << " ";
+		Inorder(Node->rightChild);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		

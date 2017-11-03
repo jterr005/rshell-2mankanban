@@ -17,7 +17,8 @@ class Shell {
                 //bool evaluator();
                 void insert(Shell* fExe,Shell* Node);
 		virtual std::string type() = 0;
-                //void display();
+		void display(Shell* fExe);
+		void Inorder(Shell* Node);
 
 };
 #endif

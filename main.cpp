@@ -55,6 +55,9 @@ int main(int, char**)
 		}
 		cout << endl;
 	}
+
+	cout << "INORDER: " << endl;
+	fExe->display(fExe);
 return 0;
 }
 
