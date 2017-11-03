@@ -12,8 +12,10 @@ class Shell {
         public:
 		Shell();
                // virtual void execute() = 0;
+               	void displayAssist(Shell*);
+                virtual string type(Shell*) = 0;
                 //bool evaluator();
-                //void insert(Shell*);
+                void insert(Shell* root, Shell* node);
                 //void display();
 
 };

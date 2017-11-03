@@ -13,6 +13,7 @@ class Connectors {
         public:
                 //void execute(string);
 		Connectors(string input);
+		string type(Shell* node);
 };
 #endif
 

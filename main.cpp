@@ -12,7 +12,6 @@
 using namespace std;
 using namespace boost;
 
-<<<<<<< HEAD
 int main(int, char**){
     Shell Tree;
     Shell* root = NULL;
@@ -33,11 +32,12 @@ int main(int, char**){
 	it != tokens.end();++it){
 		cout << *it;
 		if(*it == "&" || *it == "|" || *it == ";"){
-				cout << " CTR ";
-				string input = *it;
-				Connectors* Node = new Connectors(input);
-				cout << "NODE created";
-				//Tree.insert(Node);
+			cout << " CTR ";
+			string input = *it;
+			Connectors* Node = new Connectors(input);
+			cout << "NODE created";
+			Tree.insert(root,Node);
+			root = Node;
 			if(*it == "&" || *it == "|"){
 				++it;	
 			}	
@@ -47,7 +47,12 @@ int main(int, char**){
 			string input = *it;
 			Executables* Node = new Executables(input);
 			cout << "NODE created";
-				//Tree.insert(Node);
+			if(root == NULL){
+				root = Node;
+			}
+			else{
+				Tree.insert(root,Node);
+			}
 		}
 		cout << endl;
 	}

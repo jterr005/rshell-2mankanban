@@ -11,6 +11,7 @@ class Executables {
         public:
 		Executables(string input);
                 void execute(string);
+		string type(Shell* node);
 
 };
 #endif

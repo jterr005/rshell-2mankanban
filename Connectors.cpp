@@ -20,3 +20,6 @@ Connectors::Connectors(string input){
 		this->rightChild = NULL;
 		
 }
+String Connectors::type(Shell* node){
+	return node->cntr;
+}
