@@ -9,6 +9,7 @@ class Shell {
 		bool success = false;
 		Shell* parent = NULL;
         public:
+		Shell();
                 virtual void execute() = 0;
                 bool evaluator();
                 void insert(Shell*);
