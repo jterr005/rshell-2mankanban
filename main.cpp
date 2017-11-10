@@ -16,7 +16,7 @@ int main(int, char**)
 {
     Shell* fExe = NULL;
     string input;
-    cout << "$";
+    cout << "$ ";
     getline(cin, input);
 
     char_separator<char> sep("","|&;");

@@ -17,11 +17,19 @@ void Executables::execute(string cmd) {
 
 	argmts[0] = (char*)cmd.c_str();
 	argmts[1] = NULL;
+	
+	pid_t pid = fork();
 
-	if(execvp(argmts[0], argmts) == -1) {
-		cout << "Process failed" << endl;
+	if(pid == 0) { //CHILD PROCESS
+		if(execvp(argmts[0], argmts) == -1) {
+			cout << "Process failed" << endl;
+		}
 	}
-	else {
-		cout << "Process successful" << endl;
+	
+	else if(pid != 0) { //PARENT PROCESS
+		if(wait(0) == -1) {
+			cout << "Process failed at wait(0)" << endl;
+		}
+	cout << "Process successful" << endl;
 	}
 }
