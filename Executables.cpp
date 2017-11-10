@@ -12,3 +12,4 @@ string Executables::type(){
 	return argmnt;
 }
 
+void Executables::execute(string cmd) {}

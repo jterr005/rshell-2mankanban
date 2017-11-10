@@ -8,7 +8,7 @@ class Connectors: public Shell {
         private:
 		std::string cntr;
         public:
-                //void execute(string);
+                void execute(std::string);
 		Connectors(std::string input);
 		std::string type();
 

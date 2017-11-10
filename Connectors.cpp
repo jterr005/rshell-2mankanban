@@ -24,3 +24,6 @@ Connectors::Connectors(string input){
 string Connectors::type(){
 	return cntr;
 }
+
+void Connectors::execute(string cntr) {}
+
