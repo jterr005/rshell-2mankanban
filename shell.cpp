@@ -63,7 +63,7 @@ void Shell::display(Shell* fExe){
 	else{
 		Shell* temp = fExe;
 		while(temp->parent != NULL){
-		temp = temp->parent;
+			temp = temp->parent;
 		}
 		Inorder(temp);
 	}
@@ -77,6 +77,30 @@ void Shell::Inorder(Shell* Node){
 		Inorder(Node->rightChild);
 	}
 }
+
+void Shell::run(Shell* fExe) {
+	Shell* temp = fExe;
+
+	if(fExe->parent == NULL) {
+		runInorder(fExe);
+	}
+	else{
+		Shell* temp = fExe;
+		while(temp->parent != NULL) {
+			temp = temp->parent;
+		}
+		runInorder(temp);
+	}
+}
+
+void Shell::runInorder(Shell* Node) {
+	if(Node != NULL) {
+		runInorder(Node->leftChild);
+		Node->execute(Node->type());
+		runInorder(Node->rightChild);
+	}
+}
+		
 
 
 

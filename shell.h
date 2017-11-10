@@ -23,6 +23,8 @@ class Shell {
 		virtual std::string type() = 0;
 		void display(Shell* fExe);
 		void Inorder(Shell* Node);
+		void run(Shell* fExe);
+		void runInorder(Shell*);
 
 };
 #endif

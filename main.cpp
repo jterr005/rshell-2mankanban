@@ -58,6 +58,9 @@ int main(int, char**)
 
 	cout << "INORDER: " << endl;
 	fExe->display(fExe);
+
+	cout << "Running commands: " << endl;
+	fExe->run(fExe);
 return 0;
 }
 
