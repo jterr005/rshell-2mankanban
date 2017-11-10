@@ -25,5 +25,10 @@ string Connectors::type(){
 	return cntr;
 }
 
-void Connectors::execute(string cntr) {}
+
+
+void Connectors::execute(string cntr) {
+	//if(this->type() == "||") {
+		
+}
 

@@ -14,7 +14,9 @@ Shell::Shell(){
 	this->rightChild = NULL;
 }
 
-//bool Shell::evaluator() {}
+bool Shell::evaluator() {
+	return success;
+}
 
 
 void Shell::insert(Shell* fExe, Shell* Node){
@@ -99,23 +101,4 @@ void Shell::runInorder(Shell* Node) {
 		Node->execute(Node->type());
 		runInorder(Node->rightChild);
 	}
-}
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
+}	

@@ -18,7 +18,7 @@ class Shell {
 		Shell();
                 virtual void execute(std::string) = 0;
                	//void displayAssist(Shell*);
-                //bool evaluator();
+                bool evaluator();
                 void insert(Shell* fExe,Shell* Node);
 		virtual std::string type() = 0;
 		void display(Shell* fExe);
