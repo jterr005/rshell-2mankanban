@@ -31,7 +31,8 @@ void Executables::execute(string cmd) {
 	vector<string> strvctr;
 	boost::split(strvctr, cmd, boost::is_any_of("\t "));
 	
-	for(unsigned j = 0; j < strvctr.size(); ++j) {
+/*	
+ 	for(unsigned j = 0; j < strvctr.size(); ++j) {
 		if(strvctr.at(j).find("#") != string::npos) {
 			//cout << "Removing: " << strvctr.at(j) << endl;
 			size = j;
@@ -39,6 +40,7 @@ void Executables::execute(string cmd) {
 			break;
 		}
 	}
+*/
 	
 	//cout << "SIZE: " <<  size << endl;
 	while (size > 0 ) {
