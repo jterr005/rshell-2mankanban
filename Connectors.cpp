@@ -28,7 +28,16 @@ string Connectors::type(){
 
 
 void Connectors::execute(string cntr) {
-	//if(this->type() == "||") {
-		
+	if(this->cntr == "&&") {
+		cout << "CHECKING && NODE" << endl;
+		if(this->leftChild->evaluator() == true && this->rightChild->evaluator() == true) {
+			this->success = true;
+			return;
+		}
+		else {
+			this->success = false;
+			return;
+		}
+	}
 }
 

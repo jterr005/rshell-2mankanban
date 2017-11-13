@@ -16,41 +16,41 @@ string Executables::type(){
 }
 
 void Executables::execute(string cmd) {
+	cout << "Start of execute function: " <<  cmd << endl;
 	stringstream ss;
 	string tmp;
 	ss << cmd;
 	int size = 0;
-	//cout << ss.str() << endl;
 
 	while (ss >> tmp ) {
 		++size;
 	}
-		
+	
+	cmd = ss.str();	
+	cout << "this is after reassigning: " << cmd << endl;
 	int i = 0;
-	char* argmts[size + 1];
+	
 	vector<string> strvctr;
-	boost::split(strvctr, cmd, boost::is_any_of("\t "));
+	boost::split(strvctr, argmnt, boost::is_any_of(" "));
+	cout << "This is what is in vector after parsing " << strvctr.at(0) << endl;
 	
-/*	
- 	for(unsigned j = 0; j < strvctr.size(); ++j) {
-		if(strvctr.at(j).find("#") != string::npos) {
-			//cout << "Removing: " << strvctr.at(j) << endl;
-			size = j;
-			j = 5000;
-			break;
-		}
+	if(mainCounter > 1) {
+		strvctr.erase(strvctr.begin());
+		
 	}
-*/
 	
-	//cout << "SIZE: " <<  size << endl;
+	char* argmts[size + 1];	
+	
+	
 	while (size > 0 ) {
-		//cout << "PROCESSING " << strvctr.at(i) << endl;
+		cout << "PROCESSING " << strvctr.at(i) << endl;
+		
 		argmts[i] = (char*)strvctr.at(i).c_str();
 		++i;
 		--size;
 	}
 	argmts[i] = NULL;
-
+	++mainCounter;
 	
 	pid_t pid = fork();
 	if(pid == 0) { //CHILD PROCESS

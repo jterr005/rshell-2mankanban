@@ -95,10 +95,13 @@ void Shell::run(Shell* fExe) {
 	}
 }
 
+
 void Shell::runInorder(Shell* Node) {
 	if(Node != NULL) {
 		runInorder(Node->leftChild);
-		Node->execute(Node->type());
 		runInorder(Node->rightChild);
+		cout << "Type: " << Node->type() << endl;
+		Node->execute(Node->type());
+		
 	}
 }	

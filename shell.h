@@ -6,6 +6,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+extern int mainCounter;
+
 class Shell {
 	protected:
 		char prompt;

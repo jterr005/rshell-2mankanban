@@ -12,13 +12,16 @@
 using namespace std;
 using namespace boost;
 
+//This is the assignment of a global variable declared somewhere else
+int mainCounter = 1;
+
 int main(int, char**)
 {
     Shell* fExe = NULL;
     string input;
     cout << "$ ";
     getline(cin, input);
-
+    
     char_separator<char> sep("","|&;");
     tokenizer<char_separator<char> > tokens(input,sep);
 /*
