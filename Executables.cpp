@@ -16,23 +16,24 @@ string Executables::type(){
 }
 
 void Executables::execute(string cmd) {
-	cout << "Start of execute function: " <<  cmd << endl;
+	//cout << "Start of execute function: " <<  cmd << endl;
 	stringstream ss;
 	string tmp;
 	ss << cmd;
 	int size = 0;
+	int status;
 
 	while (ss >> tmp ) {
 		++size;
 	}
 	
 	cmd = ss.str();	
-	cout << "this is after reassigning: " << cmd << endl;
+	//cout << "this is after reassigning: " << cmd << endl;
 	int i = 0;
 	
 	vector<string> strvctr;
 	boost::split(strvctr, argmnt, boost::is_any_of(" "));
-	cout << "This is what is in vector after parsing " << strvctr.at(0) << endl;
+	//cout << "This is what is in vector after parsing " << strvctr.at(0) << endl;
 	
 	if(mainCounter > 1) {
 		strvctr.erase(strvctr.begin());
@@ -43,7 +44,7 @@ void Executables::execute(string cmd) {
 	
 	
 	while (size > 0 ) {
-		cout << "PROCESSING " << strvctr.at(i) << endl;
+		//cout << "PROCESSING " << strvctr.at(i) << endl;
 		
 		argmts[i] = (char*)strvctr.at(i).c_str();
 		++i;
@@ -54,19 +55,37 @@ void Executables::execute(string cmd) {
 	
 	pid_t pid = fork();
 	if(pid == 0) { //CHILD PROCESS
-		if(execvp(argmts[0], argmts) == -1) {
+		execvp(argmts[0], argmts);
+		perror("execvp failed: ");
+		exit(-1);/*
+		if((execvp(argmts[0], argmts)) == -1) {
 			cout << "Process failed" << endl;
-			success = false;
-		}
+			cout << "CHILD PROCESS >> MAINCOUNTER IS: " << mainCounter << endl << endl;
+			this->success = false;
+			return;
+		}*/
 	}
 	
-	else if(pid != 0) { //PARENT PROCESS
-		if(wait(0) == -1) {
-			cout << "Process failed at wait(0)" << endl;
-			success = false;
+	else if(pid > 0) { //PARENT PROCESS
+		//pid_t check = wait(0);
+		//cout << wait(0) << endl;
+		if(waitpid(pid, &status, 0) == -1) {
+			perror("Wait: ");
+			this->success = false;
 		}
-	cout << "Process successful" << endl;
-
-	success = true;
+		if(WEXITSTATUS(status) && WIFEXITED(status) != 0) {
+			this->success = false;
+		}
+		else {
+                	cout << "Process successful" << endl;
+			cout << "PARENT PROCESS >> MAINCOUNTER IS: " << mainCounter << endl << endl;
+                	this->success = true;
+                	return;
+        	}	
+		return;
+	}
+	else if (pid < 0) {
+		cout << "Something went VERY BAD" << endl;
+		return;
 	}
 }

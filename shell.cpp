@@ -8,14 +8,14 @@ using namespace std;
 
 Shell::Shell(){
         this->prompt = '$';
-        this->success = false;
+        this->success = 1;
 	this->parent = NULL;
 	this->leftChild = NULL;
 	this->rightChild = NULL;
 }
 
 bool Shell::evaluator() {
-	return success;
+	return this->success;
 }
 
 
@@ -82,13 +82,16 @@ void Shell::Inorder(Shell* Node){
 
 void Shell::run(Shell* fExe) {
 	Shell* temp = fExe;
-
+	
 	if(fExe->parent == NULL) {
+		cout << "RUNNING TREE FROM IF STATEMENT " << endl << endl;
 		runInorder(fExe);
 	}
+	
 	else{
-		Shell* temp = fExe;
+		cout << "RUNNING TREE FROM IF STATEMENT " << endl << endl;
 		while(temp->parent != NULL) {
+			
 			temp = temp->parent;
 		}
 		runInorder(temp);
@@ -99,9 +102,9 @@ void Shell::run(Shell* fExe) {
 void Shell::runInorder(Shell* Node) {
 	if(Node != NULL) {
 		runInorder(Node->leftChild);
-		runInorder(Node->rightChild);
-		cout << "Type: " << Node->type() << endl;
+		cout << Node->type() <<  " EXECUTED IN RUNINORDER FUNCTION" << endl;   
 		Node->execute(Node->type());
-		
+		//runInorder(Node->rightChild);		
 	}
+	return;
 }	
