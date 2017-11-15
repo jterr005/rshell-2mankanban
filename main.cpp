@@ -24,12 +24,7 @@ int main(int, char**)
     
     char_separator<char> sep("","|&;");
     tokenizer<char_separator<char> > tokens(input,sep);
-/*
-    for(tokenizer<char_separator<char> >::iterator it = tokens.begin();
-    it != tokens.end();++it){
-      cout << *it << " ";
-    }
-*/	
+	
 	for(tokenizer<char_separator<char> >::iterator it = tokens.begin();
 	it != tokens.end();++it){
 		cout << *it;
