@@ -16,7 +16,8 @@ Connectors::Connectors(string input){
 		this->cntr = ";";
 	}
 	else{
-		cout << "this is not a connector" << endl;
+		cout << "test node created" << endl;
+		this->cntr = "test";
 	}
 		
 }

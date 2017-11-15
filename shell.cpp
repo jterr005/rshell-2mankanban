@@ -56,7 +56,10 @@ void Shell::insert(Shell* fExe, Shell* Node){
 
 void Shell::display(Shell* fExe){
 	Shell* temp = fExe;
-	//cout << temp->type() << temp->parent->type() << temp->parent->rightChild->type();
+	/*
+	if(fExe->leftChild != NULL){
+		cout << fExe->leftChild->type() << " ";
+	}*/
 
 	
 	if(fExe->parent == NULL){
@@ -107,4 +110,12 @@ void Shell::runInorder(Shell* Node) {
 		//runInorder(Node->rightChild);		
 	}
 	return;
-}	
+}
+void Shell::testNodeInsert(Shell* fExe, Shell* testNode){
+	fExe->leftChild = testNode;
+	testNode->parent = fExe;
+}
+
+
+
+	

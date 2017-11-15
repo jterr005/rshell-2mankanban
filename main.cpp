@@ -17,6 +17,8 @@ int mainCounter = 1;
 int main(int, char**)
 {
     Shell* fExe = NULL;
+    Shell* testNode = NULL;
+    bool testExist = false;
     string input;
     cout << "$ ";
     getline(cin, input);
@@ -41,13 +43,14 @@ int main(int, char**)
 			cout << " ARRG ";
 			string input = *it;
 			
-			
-			vector<string> testCase;
-			boost::split(testCase, input, boost::is_any_of("test"));
-			cout << "size of vector: " << testCase.size() << endl;
-			
-			for (int i = 0; i < testCase.size(); ++i){ 
-				cout << testCase.at(i) << endl;
+			if(input.at(0) == 't' && input.at(1) == 'e' && input.at(2) == 's' && input.at(3) == 't'){
+				cout << endl;
+				cout << "test detected!!!" << endl;
+				input.erase(0,5);
+				string insertTest = "test";
+				Connectors* Node = new Connectors(insertTest);
+				testNode = Node;
+				testExist = true;
 			}
 			
 
@@ -58,9 +61,12 @@ int main(int, char**)
 				if(fExe == NULL){
 					fExe = Node;
 					cout << " root created";
-				}
+					if(testExist == true){
+						fExe->testNodeInsert(fExe,testNode);
+					}
+				}	
 				else{
-				fExe->insert(fExe,Node);
+					fExe->insert(fExe,Node);
 				}
 		}
 		cout << endl;
