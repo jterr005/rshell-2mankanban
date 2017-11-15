@@ -1,5 +1,4 @@
 #include <iostream>
-//github.com/cs100/rshell-2mankanban.git
 #include <string>
 #include <boost/tokenizer.hpp>
 #include <boost/foreach.hpp>
