@@ -40,6 +40,19 @@ int main(int, char**)
 		else{
 			cout << " ARRG ";
 			string input = *it;
+			
+			
+			vector<string> testCase;
+			boost::split(testCase, input, boost::is_any_of("test"));
+			cout << "size of vector: " << testCase.size() << endl;
+			
+			for (int i = 0; i < testCase.size(); ++i){ 
+				cout << testCase.at(i) << endl;
+			}
+			
+
+
+
 			Executables* Node = new Executables(input);
 			cout << "NODE created";
 				if(fExe == NULL){
