@@ -45,7 +45,7 @@ void Shell::insert(Shell* fExe, Shell* Node){
 		cout << " arg statement";
 		Shell* temp = fExe;
 		while(temp->parent != NULL){
-		temp = temp->parent;
+			temp = temp->parent;
 		}
 		temp->rightChild = Node;
 		Node->parent = temp;
@@ -54,14 +54,10 @@ void Shell::insert(Shell* fExe, Shell* Node){
 	
 }
 
+
 void Shell::display(Shell* fExe){
 	Shell* temp = fExe;
-	/*
-	if(fExe->leftChild != NULL){
-		cout << fExe->leftChild->type() << " ";
-	}*/
-
-	
+		
 	if(fExe->parent == NULL){
 		Inorder(fExe);
 	}
@@ -72,8 +68,6 @@ void Shell::display(Shell* fExe){
 		}
 		Inorder(temp);
 	}
-	
-
 }
 void Shell::Inorder(Shell* Node){
 	if(Node != NULL){
@@ -87,12 +81,10 @@ void Shell::run(Shell* fExe) {
 	Shell* temp = fExe;
 	
 	if(fExe->parent == NULL) {
-		cout << "RUNNING TREE FROM IF STATEMENT " << endl << endl;
 		runInorder(fExe);
 	}
 	
 	else{
-		cout << "RUNNING TREE FROM IF STATEMENT " << endl << endl;
 		while(temp->parent != NULL) {
 			
 			temp = temp->parent;
@@ -104,10 +96,37 @@ void Shell::run(Shell* fExe) {
 
 void Shell::runInorder(Shell* Node) {
 	if(Node != NULL) {
+		if (Node->type() == "exit" || Node->type() == "Exit") {
+			return;
+		} 
 		runInorder(Node->leftChild);
 		cout << Node->type() <<  " EXECUTED IN RUNINORDER FUNCTION" << endl;   
 		Node->execute(Node->type());
 		//runInorder(Node->rightChild);		
+	}
+	return;
+}
+
+void Shell:: deleteTree(Shell* fExe) {
+	Shell* temp = fExe;
+	
+	if(fExe->parent == NULL) {
+		deleteInorder(fExe);
+	}
+	
+	else {
+		while(temp->parent != NULL) {
+			temp = temp->parent;
+		}
+		deleteInorder(temp);
+	}
+}
+
+void Shell::deleteInorder(Shell* Node) {
+	if(Node != NULL) {
+		deleteInorder(Node->leftChild);
+		delete Node;
+		deleteInorder(Node->rightChild);
 	}
 	return;
 }

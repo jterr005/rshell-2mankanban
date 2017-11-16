@@ -20,8 +20,19 @@ int main(int, char**)
     Shell* testNode = NULL;
     bool testExist = false;
     string input;
-    cout << "$ ";
-    getline(cin, input);
+
+    while(input != "exit") {	
+	input.clear();
+	mainCounter = 1;
+	testExist = false;
+	testNode = NULL;
+    	cout << "$ ";
+	fExe = NULL;
+    	getline(cin, input);
+	
+	if(input == "exit") {
+		break;
+	}
     
     char_separator<char> sep("","|&;");
     tokenizer<char_separator<char> > tokens(input,sep);
@@ -51,6 +62,7 @@ int main(int, char**)
 				Connectors* Node = new Connectors(insertTest);
 				testNode = Node;
 				testExist = true;
+				insertTest.clear();
 			}
 			
 
@@ -79,6 +91,12 @@ int main(int, char**)
 	cout << "Running commands: " << endl;
 	fExe->run(fExe);
 	cout << endl;
+
+	cout << "Deleting commands: " << endl;
+	fExe->deleteTree(fExe);
+	cout << endl;
+}
+
 return 0;
 }
 

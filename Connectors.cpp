@@ -75,5 +75,9 @@ void Connectors::execute(string cntr) {
 		success = true;
 		return;
 	}
+	
+	if(this->cntr == "test") {
+	cout << "TEST CONNECTOR BUILT" << endl;	
+	}
 }
 

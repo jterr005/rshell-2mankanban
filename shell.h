@@ -27,6 +27,8 @@ class Shell {
 		void Inorder(Shell* Node);
 		void run(Shell* fExe);
 		void runInorder(Shell*);
+		void deleteTree(Shell*);
+		void deleteInorder(Shell*);
 
 };
 #endif
