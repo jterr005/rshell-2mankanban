@@ -29,7 +29,7 @@ string Connectors::type(){
 
 
 void Connectors::execute(string cntr) {
-	bool temp = false;
+/*	bool temp = false;
 	
 	if(this->cntr == "&&") {
 		temp = this->leftChild->evaluator();
@@ -79,5 +79,6 @@ void Connectors::execute(string cntr) {
 	if(this->cntr == "test") {
 		cout << "TEST CONNECTOR BUILT" << endl;	
 	}
+*/
 }
 

@@ -20,7 +20,8 @@ class Shell {
 		Shell();
                 virtual void execute(std::string) = 0;
                	void testNodeInsert(Shell* fExe, Shell* testNode);
-                bool evaluator();
+                void set_evaluator(bool);
+		bool evaluator();
                 void insert(Shell* fExe, Shell* Node);
 		virtual std::string type() = 0;
 		void display(Shell* fExe);

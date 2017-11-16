@@ -18,6 +18,9 @@ bool Shell::evaluator() {
 	return this->success;
 }
 
+void Shell::set_evaluator(bool statement) {
+	this->success = statement;
+}
 
 void Shell::insert(Shell* fExe, Shell* Node){
 	cout << " entered insert function";
@@ -99,10 +102,48 @@ void Shell::runInorder(Shell* Node) {
 		if (Node->type() == "exit" || Node->type() == "Exit") {
 			return;
 		} 
-		runInorder(Node->leftChild);
-		cout << Node->type() <<  " EXECUTED IN RUNINORDER FUNCTION" << endl;   
+		runInorder(Node->leftChild);	
 		Node->execute(Node->type());
-		//runInorder(Node->rightChild);		
+		if(Node->type() == ";") {
+			runInorder(Node->rightChild);
+			Node->set_evaluator(true);
+			return;
+		}
+		if(Node->type() == "||") {
+			if(Node->leftChild->evaluator()) {
+				Node->set_evaluator(true);
+				return;
+			}
+			else {
+				runInorder(Node->rightChild);
+				if(Node->rightChild->evaluator()) {
+					Node->set_evaluator(true);
+					return;
+				}
+				else {
+					Node->set_evaluator(false);
+					return;
+				}
+			}
+		}
+		if(Node->type() == "&&") {
+			if(Node->leftChild->evaluator()) {	
+				runInorder(Node->rightChild);
+				if(Node->rightChild->evaluator()) {
+					Node->set_evaluator(true);
+					return; 
+				}
+				else {
+					Node->set_evaluator(false);
+					return;
+				}
+			}
+			else {
+				Node->set_evaluator(false);
+				return;
+			}
+		}
+						
 	}
 	return;
 }
