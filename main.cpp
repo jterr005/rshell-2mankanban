@@ -29,7 +29,7 @@ int main(int, char**){
 	if(input == "exit") {
 		break;
 	}
-    char_separator<char> sep("", "|&;[]");
+    char_separator<char> sep("", "|&;[]()");
     tokenizer<char_separator<char> > tokens(input,sep);
 	
 	for(tokenizer<char_separator<char> >::iterator it = tokens.begin();
@@ -70,7 +70,44 @@ int main(int, char**){
 				}
 			
 		}
+		else if(*it == "("){
+			cout << " parentheses " << endl;
+			string subTree = *it;
+			int numOp = 1;
+			int numClo = 0;
+			++it;
+			while(numOp != numClo){
+				if(*it == "("){
+					numOp += 1;	
+				}
+				if(*it == ")"){
+					numClo += 1;
+				}
+				subTree += *it;
+				++it;
+			}
+			cout << "subtree will contain: " << subTree << endl;
 			
+			char_separator<char> subSep("", "|&;");
+    			tokenizer<char_separator<char> > subTokens(subTree,subSep);
+
+			for(tokenizer<char_separator<char> >::iterator subIt = subTokens.begin();
+        		it != tokens.end();++it){
+			 if(*it == "&" || *it == "|" || *it == ";"){
+                                cout << " CTR ";
+                                string ctr = *it;
+                                Connectors* node = new Connectors(ctr);
+                                cout << "NODE created";
+                                fExe->insert(fExe,node);
+
+                        	if(*it == "&" || *it == "|"){
+                                ++it;
+                        	}
+                	}
+
+			}
+
+		}	
 		else{
 			cout << " ARRG ";
 			string arrg  = *it;
