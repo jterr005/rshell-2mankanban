@@ -14,9 +14,21 @@ using namespace boost;
 
 //This is the assignment of a global variable declared somewhere else
 int mainCounter = 1;
+nclude <iostream>
+#include <string>
+#include <boost/tokenizer.hpp>
+#include <boost/foreach.hpp>
+#include <boost/algorithm/string.hpp>
+#include <boost/algorithm/string/iter_find.hpp>
+#include "shell.h"
+#include "Connectors.h"
+#include "Executables.h"
+#include "Test.h"
 
-int main(int, char**)
-{
+using namespace std;
+using namespace boost;
+
+int main(int, char**){
     Shell* fExe = NULL;
     string input;
 
