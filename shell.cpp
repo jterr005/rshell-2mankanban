@@ -3,6 +3,7 @@
 #include "shell.h"
 #include "Connectors.h"
 #include "Executables.h"
+#include "Test.h"
 
 using namespace std;
 
@@ -43,6 +44,11 @@ void Shell::insert(Shell* fExe, Shell* Node){
 			Node->leftChild = temp;
 		}
 
+	}
+	else if(type == "" || type == " "){
+		cout << " EMPTY NODE!!!!!!";
+		delete Node;
+		cout << " EMTPY NODE DELETED";
 	}
 	else{
 		cout << " arg statement";

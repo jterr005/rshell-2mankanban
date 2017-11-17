@@ -14,19 +14,6 @@ using namespace boost;
 
 //This is the assignment of a global variable declared somewhere else
 int mainCounter = 1;
-nclude <iostream>
-#include <string>
-#include <boost/tokenizer.hpp>
-#include <boost/foreach.hpp>
-#include <boost/algorithm/string.hpp>
-#include <boost/algorithm/string/iter_find.hpp>
-#include "shell.h"
-#include "Connectors.h"
-#include "Executables.h"
-#include "Test.h"
-
-using namespace std;
-using namespace boost;
 
 int main(int, char**){
     Shell* fExe = NULL;
@@ -61,17 +48,17 @@ int main(int, char**){
 		}
 		else if(*it == "["){
 			//tokenizer<char_separator<char> >::iterator bracIte = it;
-			cout << " BRACKET " << endl;
+			cout << " BRACKET ";
 			string testBracket = *it;
 			++it;
 			while(*it != "]"){
-				cout << *it << endl;
+				//cout << *it << endl;
 				testBracket += *it;
 				++it;
 			}
 			
 			testBracket += "]";
-			cout << testBracket << endl;
+			//cout << testBracket << endl;
 			Test* node = new Test(testBracket);
 			cout << "NODE created";
 				if(fExe == NULL){

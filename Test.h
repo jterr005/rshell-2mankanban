@@ -5,10 +5,11 @@
 #include <string>
 
 
-class Test : public Shell {
+class Test: public Shell {
         protected:
                 std::string test;
         public:
+		void execute(std::string);
 		Test(std::string input);
 		std::string type();
 
