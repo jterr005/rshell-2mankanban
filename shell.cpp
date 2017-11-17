@@ -38,7 +38,7 @@ void Shell::insert(Shell* fExe, Shell* Node){
 			cout << " ELSE";
 			Shell* temp = fExe;
 			while(temp->parent != NULL){
-			temp = temp->parent;
+				temp = temp->parent;
 			}
 			temp->parent = Node;
 			Node->leftChild = temp;
@@ -60,9 +60,43 @@ void Shell::insert(Shell* fExe, Shell* Node){
 		Node->parent = temp;
 		
 	}
+	cout << " exited insert function " << endl;
 	
 }
-
+void Shell::subTreeInsert(Shell* subfExe, Shell* node){
+	cout << " entered subtree insert function";
+	
+	string type = node->type();
+	if(type == "&&" || type == "||" || type == ";"){
+		cout << " subtree connector statement";
+		if(this->parent == NULL){
+			this->parent = node;
+			node->rightChild = subfExe;
+		}
+		else{
+			Shell* temp = subfExe;
+			while(temp->parent != NULL){
+				temp = temp->parent;
+			}
+			temp->parent = node;
+			node->rightChild = temp;
+		}
+	}
+	else if(type == "" || type == " "){
+                cout << " EMPTY NODE!!!!!!";
+                delete node;
+                cout << " EMTPY NODE DELETED";
+        }
+	else{
+		cout << " sub arg statement";
+		Shell* temp = subfExe;
+		while(temp->parent != NULL){
+			temp = temp->parent;
+		}
+		temp->leftChild = node;
+		node->parent = temp;
+	}
+}
 
 void Shell::display(Shell* fExe){
 	Shell* temp = fExe;

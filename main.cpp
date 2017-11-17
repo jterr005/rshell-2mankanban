@@ -29,12 +29,9 @@ int main(int, char**){
 	if(input == "exit") {
 		break;
 	}
-    char_separator<char> sep("", "|&;[]()");
-    tokenizer<char_separator<char> > tokens(input,sep);
-	
-	for(tokenizer<char_separator<char> >::iterator it = tokens.begin();
-	it != tokens.end();++it){
-		cout << *it;
+    	char_separator<char> sep("", "|&;[]()");	
+	for(tokenizer<char_separator<char> >::iterator it = tokens.begin();it != tokens.end();++it){
+		cout << *it << endl;
 
 		if(*it == "&" || *it == "|" || *it == ";"){
 				cout << " CTR ";
@@ -46,9 +43,13 @@ int main(int, char**){
 				++it;			
 			}	
 		}
+		else if(*it == "" || *it == " "){
+
+		}	
 		else if(*it == "["){
-			//tokenizer<char_separator<char> >::iterator bracIte = it;
 			cout << " BRACKET ";
+		
+	
 			string testBracket = *it;
 			++it;
 			while(*it != "]"){
@@ -70,9 +71,10 @@ int main(int, char**){
 				}
 			
 		}
-	/*	
+			
 		else if(*it == "("){
 			cout << " parentheses " << endl;
+			
 			string subTree = *it;
 			int numOp = 1;
 			int numClo = 0;
@@ -88,13 +90,11 @@ int main(int, char**){
 				++it;
 			}
 			cout << "subtree will contain: " << subTree << endl;
-			
-			char_separator<char> subSep("", "|&;");
-    			tokenizer<char_separator<char> > subTokens(subTree,subSep);
-
+				
+			std::vector<std::string> parts;
+    			boost::split(parts, subTree, boost::is_any_of("|&;"));
+			for(vector<string>::iterator subIt = parts.end(); subIt != parts.begin(); --subIt){
 			Shell* subfExe = NULL;
-			for(tokenizer<char_separator<char> >::iterator subIt = subTokens.end();
-        		it != tokens.begin();--subIt){
 				if(*subIt == "&" || *subIt == "|" || *subIt == ";"){
                                 	cout << " SUB CTR ";
                                 	string ctr = *subIt;
@@ -123,9 +123,10 @@ int main(int, char**){
 
 		
 			}
+		
 
 		}
-		*/	
+			
 		else{
 			string arrg  = *it;
 			if(arrg.at(0) == 't' && arrg.at(1) == 'e' && arrg.at(2) == 's' && arrg.at(3) == 't'){

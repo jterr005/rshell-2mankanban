@@ -24,6 +24,7 @@ class Shell {
                 void set_evaluator(bool);
 		bool evaluator();
                 void insert(Shell* fExe, Shell* Node);
+		void subTreeInsert(Shell* subfExe, Shell* node);
 		virtual std::string type() = 0;
 		void display(Shell* fExe);
 		void Inorder(Shell* Node);
