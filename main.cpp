@@ -7,6 +7,7 @@
 #include "shell.h"
 #include "Connectors.h"
 #include "Executables.h"
+#include "Test.h"
 
 using namespace std;
 using namespace boost;
@@ -17,15 +18,11 @@ int mainCounter = 1;
 int main(int, char**)
 {
     Shell* fExe = NULL;
-    Shell* testNode = NULL;
-    bool testExist = false;
     string input;
 
     while(input != "exit") {	
 	input.clear();
 	mainCounter = 1;
-	testExist = false;
-	testNode = NULL;
     	cout << "$ ";
 	fExe = NULL;
     	getline(cin, input);
@@ -33,52 +30,59 @@ int main(int, char**)
 	if(input == "exit") {
 		break;
 	}
-    
-    char_separator<char> sep("","|&;");
+    char_separator<char> sep("", "|&;[]");
     tokenizer<char_separator<char> > tokens(input,sep);
 	
 	for(tokenizer<char_separator<char> >::iterator it = tokens.begin();
 	it != tokens.end();++it){
 		cout << *it;
+
 		if(*it == "&" || *it == "|" || *it == ";"){
 				cout << " CTR ";
-				string input = *it;
-				Connectors* Node = new Connectors(input);
+				string ctr = *it;
+				Connectors* node = new Connectors(ctr);
 				cout << "NODE created";
-				fExe->insert(fExe,Node);
+				fExe->insert(fExe,node);
 			if(*it == "&" || *it == "|"){
-				++it;	
+				++it;			
 			}	
 		}
-		else{
-			cout << " ARRG ";
-			string input = *it;
-			
-			if(input.at(0) == 't' && input.at(1) == 'e' && input.at(2) == 's' && input.at(3) == 't'){
-				cout << endl;
-				cout << "test detected!!!" << endl;
-				input.erase(0,5);
-				string insertTest = "test";
-				Connectors* Node = new Connectors(insertTest);
-				testNode = Node;
-				testExist = true;
-				insertTest.clear();
+		else if(*it == "["){
+			//tokenizer<char_separator<char> >::iterator bracIte = it;
+			cout << " BRACKET " << endl;
+			string testBracket = *it;
+			++it;
+			while(*it != "]"){
+				cout << *it << endl;
+				testBracket += *it;
+				++it;
 			}
 			
-
-
-
-			Executables* Node = new Executables(input);
+			testBracket += "]";
+			cout << testBracket << endl;
+			Test* node = new Test(testBracket);
 			cout << "NODE created";
 				if(fExe == NULL){
-					fExe = Node;
+					fExe = node;
+					cout << " test node root created";
+				}
+				else{
+					fExe->insert(fExe,node);
+				}
+			
+		}
+			
+		else{
+			cout << " ARRG ";
+			string arrg  = *it;
+			Executables* node = new Executables(arrg);
+			cout << "NODE created";
+				if(fExe == NULL){
+					fExe = node;
 					cout << " root created";
-					if(testExist == true){
-						fExe->testNodeInsert(fExe,testNode);
-					}
 				}	
 				else{
-					fExe->insert(fExe,Node);
+					fExe->insert(fExe,node);
 				}
 		}
 		cout << endl;
@@ -95,7 +99,9 @@ int main(int, char**)
 	cout << "Deleting commands: " << endl;
 	fExe->deleteTree(fExe);
 	cout << endl;
-}
+
+   }
+   
 
 return 0;
 }
