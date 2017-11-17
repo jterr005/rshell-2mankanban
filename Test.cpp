@@ -11,6 +11,7 @@ string Test::type(){
 }
 void Test::execute(string cmd){
 	//Removes brackets from cmd
+	cout << "This is the cmd for test: " << endl;	
 	
 	cmd.erase(std::remove(cmd.begin(), cmd.end(), '['), cmd.end());
 	cmd.erase(std::remove(cmd.begin(), cmd.end(), ']'), cmd.end());
@@ -19,6 +20,22 @@ void Test::execute(string cmd){
 	vector<string> strvctr;
 	boost::split(strvctr, cmd, boost::is_any_of(" "));
 	
+	if(mainCounter > 1) {
+		if( cmd.find("test") != string::npos) {
+			cout << strvctr.at(0) << endl;
+			strvctr.erase(strvctr.begin());
+			cout << strvctr.at(0) << endl;
+			strvctr.erase(strvctr.begin());
+			cout << strvctr.at(0) << endl;
+			
+		}
+	}
+	else if (mainCounter == 1 &&  cmd.find("test") != string::npos) {
+		cout << "strvctr.at(0) is " << strvctr.at(0) << endl;
+		strvctr.erase(strvctr.begin());
+		cout << "strvctr.at(0) is " << strvctr.at(0) << " after deleting first vector" << endl;
+	}
+	 	
 	++mainCounter;
 	struct stat scan;
 	if(strvctr.at(0) == "-e") {
@@ -58,7 +75,8 @@ void Test::execute(string cmd){
 		}
 	}
 	else {
-		if(stat(strvctr.at(1).c_str(), &scan) == 0) { 
+		cout << "STRING AT AT(1)" << strvctr.at(0) << endl;
+		if(stat(strvctr.at(0).c_str(), &scan) == 0) { 
 			cout << "(True)" << endl;
 			this->set_evaluator(true);
 			return;
