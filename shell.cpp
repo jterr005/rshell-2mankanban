@@ -109,7 +109,7 @@ void Shell::runInorder(Shell* Node) {
 		if (Node->type() == "exit" || Node->type() == "Exit") {
 			return;
 		} 
-		runInorder(Node->leftChild);	
+		runInorder(Node->leftChild);
 		Node->execute(Node->type());
 		//checks if current Node is ";"
 		if(Node->type() == ";") {
