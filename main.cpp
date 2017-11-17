@@ -17,6 +17,9 @@ int mainCounter = 1;
 
 int main(int, char**){
     Shell* fExe = NULL;
+    Shell* root = NULL;
+    Shell* subRoot = NULL;
+    bool subTreeExists = false;
     string input;
 
     while(input != "exit") {	
@@ -29,11 +32,9 @@ int main(int, char**){
 	if(input == "exit") {
 		break;
 	}
-    char_separator<char> sep("", "|&;[]()");
-    tokenizer<char_separator<char> > tokens(input,sep);
-	
-	for(tokenizer<char_separator<char> >::iterator it = tokens.begin();
-	it != tokens.end();++it){
+    	char_separator<char> sep("", "|&;[]()");
+	tokenizer<char_separator<char> > tokens(input,sep);	
+	for(tokenizer<char_separator<char> >::iterator it = tokens.begin();it != tokens.end();++it){
 		cout << *it;
 
 		if(*it == "&" || *it == "|" || *it == ";"){
@@ -46,9 +47,13 @@ int main(int, char**){
 				++it;			
 			}	
 		}
+		else if(*it == "" || *it == " "){
+
+		}	
 		else if(*it == "["){
-			//tokenizer<char_separator<char> >::iterator bracIte = it;
 			cout << " BRACKET ";
+		
+	
 			string testBracket = *it;
 			++it;
 			while(*it != "]"){
@@ -70,9 +75,10 @@ int main(int, char**){
 				}
 			
 		}
-	/*	
+			
 		else if(*it == "("){
 			cout << " parentheses " << endl;
+			
 			string subTree = *it;
 			int numOp = 1;
 			int numClo = 0;
@@ -85,27 +91,35 @@ int main(int, char**){
 					numClo += 1;
 				}
 				subTree += *it;
-				++it;
+				if(numOp != numClo){
+					++it;
+				}
 			}
 			cout << "subtree will contain: " << subTree << endl;
-			
-			char_separator<char> subSep("", "|&;");
-    			tokenizer<char_separator<char> > subTokens(subTree,subSep);
-
 			Shell* subfExe = NULL;
-			for(tokenizer<char_separator<char> >::iterator subIt = subTokens.end();
-        		it != tokens.begin();--subIt){
+		
+	
+			char_separator<char> subSep("", "|&;()");
+			cout << "char sep worked" << endl;
+        		tokenizer<char_separator<char> > subTokens(subTree,subSep);
+			cout << " tokenizer worked" << endl;
+       			 for(tokenizer<char_separator<char> >::iterator subIt = subTokens.begin();subIt != subTokens.end();++subIt){
+				cout << *subIt;
+				
 				if(*subIt == "&" || *subIt == "|" || *subIt == ";"){
                                 	cout << " SUB CTR ";
                                 	string ctr = *subIt;
                                 	Connectors* node = new Connectors(ctr);
                                 	cout << "NODE created";
-                                	subfExe->subTreeInsert(subfExe,node);
+                                	subfExe->insert(subfExe,node);
 
                         		if(*subIt == "&" || *subIt == "|"){
-                                		--subIt;
+                                		++subIt;
                         		}
                 		}
+				else if(*subIt == "(" || *subIt == ")" || *subIt == "" || *subIt == " "){
+					
+				}
 				else{
                         		cout << " SUB ARRG ";
                         		string arrg  = *subIt;
@@ -117,15 +131,31 @@ int main(int, char**){
                                         	cout << "sub root created";
                                 	}
                                 	else{
-                                        	subfExe->subTreeInsert(subfExe,node);
+                                        	subfExe->insert(subfExe,node);
                                 	}
                 		}
 
-		
+				
 			}
-
+			     cout << "SUBTREE INORDER: " << endl;
+     				subfExe->display(subfExe);
+			        cout << endl;
+			        subRoot = subfExe->getParent(subfExe);
+				subTreeExists = true;
+				root = fExe->getParent(fExe);
+				/*
+				cout << "subTree root :";
+				cout << subRoot->type() << endl;
+				cout << "Tree root :";
+				cout << root->type() << endl;
+				root->connectTrees(root, subRoot);
+				cout << "trees connected!" << endl;
+				cout << "INORDER TREE DISPLAY";
+				fExe->display(fExe);
+				cout << endl;
+				*/
 		}
-		*/	
+			
 		else{
 			string arrg  = *it;
 			if(arrg.at(0) == 't' && arrg.at(1) == 'e' && arrg.at(2) == 's' && arrg.at(3) == 't'){
@@ -166,7 +196,19 @@ int main(int, char**){
 			}
 		}
 		cout << endl;
-	}
+	}			
+			if(subTreeExists){
+				cout << "subTree root :";
+                                cout << subRoot->type() << endl;
+                                cout << "Tree root :";
+                                cout << root->type() << endl;
+                                root->connectTrees(root, subRoot);
+                                cout << "trees connected!" << endl;
+                                cout << "INORDER TREE DISPLAY";
+                                fExe->display(fExe);
+                                cout << endl;
+			}
+
 
 	cout << "INORDER: " << endl;
 	fExe->display(fExe);
@@ -178,6 +220,10 @@ int main(int, char**){
 
 	cout << "Deleting commands: " << endl;
 	fExe->deleteTree(fExe);
+	fExe = NULL;
+	root = NULL;
+	subRoot = NULL;
+	subTreeExists = false;
 	cout << endl;
 
    }

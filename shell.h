@@ -24,6 +24,7 @@ class Shell {
                 void set_evaluator(bool);
 		bool evaluator();
                 void insert(Shell* fExe, Shell* Node);
+		void subTreeInsert(Shell* subfExe, Shell* node);
 		virtual std::string type() = 0;
 		void display(Shell* fExe);
 		void Inorder(Shell* Node);
@@ -31,6 +32,8 @@ class Shell {
 		void runInorder(Shell*);
 		void deleteTree(Shell*);
 		void deleteInorder(Shell*);
+		Shell* getParent(Shell* subfExe);
+		void connectTrees(Shell* root, Shell* subRoot);
 
 };
 #endif
