@@ -29,7 +29,8 @@ int main(int, char**){
 	if(input == "exit") {
 		break;
 	}
-    	char_separator<char> sep("", "|&;[]()");	
+    	char_separator<char> sep("", "|&;[]()");
+	tokenizer<char_separator<char> > tokens(input,sep);	
 	for(tokenizer<char_separator<char> >::iterator it = tokens.begin();it != tokens.end();++it){
 		cout << *it << endl;
 
@@ -94,6 +95,8 @@ int main(int, char**){
 			std::vector<std::string> parts;
     			boost::split(parts, subTree, boost::is_any_of("|&;"));
 			for(vector<string>::iterator subIt = parts.end(); subIt != parts.begin(); --subIt){
+			cout << *subIt << endl;
+			}/*
 			Shell* subfExe = NULL;
 				if(*subIt == "&" || *subIt == "|" || *subIt == ";"){
                                 	cout << " SUB CTR ";
@@ -123,7 +126,7 @@ int main(int, char**){
 
 		
 			}
-		
+		*/
 
 		}
 			
