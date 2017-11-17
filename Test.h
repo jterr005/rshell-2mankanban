@@ -3,6 +3,9 @@
 
 #include "shell.h"
 #include <string>
+#include <algorithm>
+#include <boost/algorithm/string.hpp>
+#include <vector> 
 
 
 class Test: public Shell {
