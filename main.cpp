@@ -70,6 +70,7 @@ int main(int, char**){
 				}
 			
 		}
+		/*
 		else if(*it == "("){
 			cout << " parentheses " << endl;
 			string subTree = *it;
@@ -91,35 +92,67 @@ int main(int, char**){
 			char_separator<char> subSep("", "|&;");
     			tokenizer<char_separator<char> > subTokens(subTree,subSep);
 
+			Shell* subFexe == NULL;
+
 			for(tokenizer<char_separator<char> >::iterator subIt = subTokens.begin();
-        		it != tokens.end();++it){
-			 if(*it == "&" || *it == "|" || *it == ";"){
-                                cout << " CTR ";
-                                string ctr = *it;
-                                Connectors* node = new Connectors(ctr);
-                                cout << "NODE created";
-                                fExe->insert(fExe,node);
+        		it != tokens.end();++subIt){
+				if(*subIt == "&" || *subIt == "|" || *subIt == ";"){
+                                	cout << " SUB CTR ";
+                                	string ctr = *subIt;
+                                	Connectors* node = new Connectors(ctr);
+                                	cout << "NODE created";
+                                	subfExe->subTreeInsert(subfExe,node);
 
-                        	if(*it == "&" || *it == "|"){
-                                ++it;
-                        	}
-                	}
+                        		if(*subIt == "&" || *subIt == "|"){
+                                		++subIt;
+                        		}
+                		}
+				else{
+                        		cout << " SUB ARRG ";
+                        		string arrg  = *subIt;
+                        		Executables* node = new Executables(arrg);
+                        		cout << "NODE created";
+                                	
+					if(subfExe == NULL){
+                                        	subfExe = node;
+                                        	cout << "sub root created";
+                                	}
+                                	else{
+                                        	subfExe->subTreeInsert(subfExe,node);
+                                	}
+                		}
 
+		
 			}
 
-		}	
+		}
+		*/	
 		else{
-			cout << " ARRG ";
 			string arrg  = *it;
-			Executables* node = new Executables(arrg);
-			cout << "NODE created";
-				if(fExe == NULL){
-					fExe = node;
-					cout << " root created";
-				}	
-				else{
-					fExe->insert(fExe,node);
-				}
+			if(arrg.at(0) == 't' && arrg.at(1) == 'e' && arrg.at(2) == 's' && arrg.at(3) == 't'){
+				cout << " TEST ";
+				Test* node = new Test(arrg);
+				cout << "NODE created";
+					if(fExe == NULL){
+						fExe = node;
+						cout << " test root created";
+					}
+					else{
+						fExe->insert(fExe,node);
+					}
+			}
+			else{
+				cout << " ARRG ";
+				Executables* node = new Executables(arrg);
+				cout << "NODE created";
+					if(fExe == NULL){
+						fExe = node;
+						cout << " root created";
+					}	
+					else{
+						fExe->insert(fExe,node);
+					}
+			}
 		}
 		cout << endl;
 	}
