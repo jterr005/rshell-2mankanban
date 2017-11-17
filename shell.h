@@ -32,6 +32,8 @@ class Shell {
 		void runInorder(Shell*);
 		void deleteTree(Shell*);
 		void deleteInorder(Shell*);
+		Shell* getParent(Shell* subfExe);
+		void connectTrees(Shell* root, Shell* subRoot);
 
 };
 #endif

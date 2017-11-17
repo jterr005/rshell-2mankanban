@@ -17,6 +17,8 @@ int mainCounter = 1;
 
 int main(int, char**){
     Shell* fExe = NULL;
+    Shell* root = NULL;
+    Shell* subRoot = NULL;
     string input;
 
     while(input != "exit") {	
@@ -91,24 +93,30 @@ int main(int, char**){
 				++it;
 			}
 			cout << "subtree will contain: " << subTree << endl;
-				
-			std::vector<std::string> parts;
-    			boost::split(parts, subTree, boost::is_any_of("|&;"));
-			for(vector<string>::iterator subIt = parts.end(); subIt != parts.begin(); --subIt){
-			cout << *subIt << endl;
-			}/*
 			Shell* subfExe = NULL;
+		
+	
+			char_separator<char> subSep("", "|&;()");
+			cout << "char sep worked" << endl;
+        		tokenizer<char_separator<char> > subTokens(subTree,subSep);
+			cout << " tokenizer worked" << endl;
+       			 for(tokenizer<char_separator<char> >::iterator subIt = subTokens.begin();subIt != subTokens.end();++subIt){
+				cout << *subIt;
+				
 				if(*subIt == "&" || *subIt == "|" || *subIt == ";"){
                                 	cout << " SUB CTR ";
                                 	string ctr = *subIt;
                                 	Connectors* node = new Connectors(ctr);
                                 	cout << "NODE created";
-                                	subfExe->subTreeInsert(subfExe,node);
+                                	subfExe->insert(subfExe,node);
 
                         		if(*subIt == "&" || *subIt == "|"){
-                                		--subIt;
+                                		++subIt;
                         		}
                 		}
+				else if(*subIt == "(" || *subIt == ")" || *subIt == "" || *subIt == " "){
+					
+				}
 				else{
                         		cout << " SUB ARRG ";
                         		string arrg  = *subIt;
@@ -120,14 +128,28 @@ int main(int, char**){
                                         	cout << "sub root created";
                                 	}
                                 	else{
-                                        	subfExe->subTreeInsert(subfExe,node);
+                                        	subfExe->insert(subfExe,node);
                                 	}
                 		}
 
-		
+				
 			}
-		*/
-
+			     cout << "SUBTREE INORDER: " << endl;
+     				subfExe->display(subfExe);
+			        cout << endl;
+			        subRoot = subfExe->getParent(subfExe);
+				root = fExe->getParent(fExe);
+				/*
+				cout << "subTree root :";
+				cout << subRoot->type() << endl;
+				cout << "Tree root :";
+				cout << root->type() << endl;
+				root->connectTrees(root, subRoot);
+				cout << "trees connected!" << endl;
+				cout << "INORDER TREE DISPLAY";
+				fExe->display(fExe);
+				cout << endl;
+				*/
 		}
 			
 		else{
@@ -171,6 +193,16 @@ int main(int, char**){
 		}
 		cout << endl;
 	}
+				cout << "subTree root :";
+                                cout << subRoot->type() << endl;
+                                cout << "Tree root :";
+                                cout << root->type() << endl;
+                                root->connectTrees(root, subRoot);
+                                cout << "trees connected!" << endl;
+                                cout << "INORDER TREE DISPLAY";
+                                fExe->display(fExe);
+                                cout << endl;
+
 
 	cout << "INORDER: " << endl;
 	fExe->display(fExe);

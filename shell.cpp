@@ -219,6 +219,19 @@ void Shell::testNodeInsert(Shell* fExe, Shell* testNode){
 	fExe->leftChild = testNode;
 	testNode->parent = fExe;
 }
+Shell* Shell::getParent(Shell* subfExe){
+	Shell* temp = subfExe;
+	
+	while(temp->parent != NULL){
+		temp = temp->parent;
+	}
+	return temp;
+}
+void Shell::connectTrees(Shell* root, Shell* subRoot){
+	root->rightChild = subRoot;
+	subRoot->parent = root;
+
+}
 
 
 
