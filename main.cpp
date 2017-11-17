@@ -19,6 +19,7 @@ int main(int, char**){
     Shell* fExe = NULL;
     Shell* root = NULL;
     Shell* subRoot = NULL;
+    bool subTreeExists = false;
     string input;
 
     while(input != "exit") {	
@@ -34,7 +35,7 @@ int main(int, char**){
     	char_separator<char> sep("", "|&;[]()");
 	tokenizer<char_separator<char> > tokens(input,sep);	
 	for(tokenizer<char_separator<char> >::iterator it = tokens.begin();it != tokens.end();++it){
-		cout << *it << endl;
+		cout << *it;
 
 		if(*it == "&" || *it == "|" || *it == ";"){
 				cout << " CTR ";
@@ -90,7 +91,9 @@ int main(int, char**){
 					numClo += 1;
 				}
 				subTree += *it;
-				++it;
+				if(numOp != numClo){
+					++it;
+				}
 			}
 			cout << "subtree will contain: " << subTree << endl;
 			Shell* subfExe = NULL;
@@ -138,6 +141,7 @@ int main(int, char**){
      				subfExe->display(subfExe);
 			        cout << endl;
 			        subRoot = subfExe->getParent(subfExe);
+				subTreeExists = true;
 				root = fExe->getParent(fExe);
 				/*
 				cout << "subTree root :";
@@ -192,7 +196,8 @@ int main(int, char**){
 			}
 		}
 		cout << endl;
-	}
+	}			
+			if(subTreeExists){
 				cout << "subTree root :";
                                 cout << subRoot->type() << endl;
                                 cout << "Tree root :";
@@ -202,6 +207,7 @@ int main(int, char**){
                                 cout << "INORDER TREE DISPLAY";
                                 fExe->display(fExe);
                                 cout << endl;
+			}
 
 
 	cout << "INORDER: " << endl;
@@ -214,6 +220,10 @@ int main(int, char**){
 
 	cout << "Deleting commands: " << endl;
 	fExe->deleteTree(fExe);
+	fExe = NULL;
+	root = NULL;
+	subRoot = NULL;
+	subTreeExists = false;
 	cout << endl;
 
    }
