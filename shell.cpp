@@ -94,6 +94,7 @@ void Shell::run(Shell* fExe) {
 		}
 		runInorder(temp);
 	}
+	return;
 }
 
 
@@ -104,11 +105,13 @@ void Shell::runInorder(Shell* Node) {
 		} 
 		runInorder(Node->leftChild);	
 		Node->execute(Node->type());
+		//checks if current Node is ";"
 		if(Node->type() == ";") {
 			runInorder(Node->rightChild);
 			Node->set_evaluator(true);
 			return;
 		}
+		//checks if current Node is "||"
 		if(Node->type() == "||") {
 			if(Node->leftChild->evaluator()) {
 				Node->set_evaluator(true);
@@ -126,6 +129,7 @@ void Shell::runInorder(Shell* Node) {
 				}
 			}
 		}
+		//checks if current Node is "&&"
 		if(Node->type() == "&&") {
 			if(Node->leftChild->evaluator()) {	
 				runInorder(Node->rightChild);
