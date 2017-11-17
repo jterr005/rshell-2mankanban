@@ -70,7 +70,7 @@ int main(int, char**){
 				}
 			
 		}
-		/*
+	/*	
 		else if(*it == "("){
 			cout << " parentheses " << endl;
 			string subTree = *it;
@@ -92,10 +92,9 @@ int main(int, char**){
 			char_separator<char> subSep("", "|&;");
     			tokenizer<char_separator<char> > subTokens(subTree,subSep);
 
-			Shell* subFexe == NULL;
-
-			for(tokenizer<char_separator<char> >::iterator subIt = subTokens.begin();
-        		it != tokens.end();++subIt){
+			Shell* subfExe = NULL;
+			for(tokenizer<char_separator<char> >::iterator subIt = subTokens.end();
+        		it != tokens.begin();--subIt){
 				if(*subIt == "&" || *subIt == "|" || *subIt == ";"){
                                 	cout << " SUB CTR ";
                                 	string ctr = *subIt;
@@ -104,7 +103,7 @@ int main(int, char**){
                                 	subfExe->subTreeInsert(subfExe,node);
 
                         		if(*subIt == "&" || *subIt == "|"){
-                                		++subIt;
+                                		--subIt;
                         		}
                 		}
 				else{
@@ -141,6 +140,18 @@ int main(int, char**){
 						fExe->insert(fExe,node);
 					}
 			}
+			else if(arrg.at(1) == 't' && arrg.at(2) == 'e' && arrg.at(3) == 's' && arrg.at(4) == 't'){
+                                cout << " TEST ";
+                                Test* node = new Test(arrg);
+                                cout << "NODE created";
+                                        if(fExe == NULL){
+                                                fExe = node;
+                                                cout << " test root created";
+                                        }
+                                        else{
+                                                fExe->insert(fExe,node);
+                                        }
+                        }
 			else{
 				cout << " ARRG ";
 				Executables* node = new Executables(arrg);
@@ -156,7 +167,7 @@ int main(int, char**){
 		}
 		cout << endl;
 	}
-//Wow
+
 	cout << "INORDER: " << endl;
 	fExe->display(fExe);
 	cout << endl;
