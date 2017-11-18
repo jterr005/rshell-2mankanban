@@ -36,11 +36,13 @@ void Test::execute( string cmd ) {
 			}
 		}
 		else if (subTreeCounter == 1 && cmd.find("test") != string::npos) {
+			cout << "strvctr.at(0) before erase: " << strvctr.at(0) << endl;
 			strvctr.erase(strvctr.begin());
+			cout << "strvctr.at(0) after erase: " << strvctr.at(0) << endl;
 		}
 		++subTreeCounter;
 	}
-	if (!this->get_subTree()) {	
+	else {	
 		
 		if ( mainCounter > 1 ) {
 			
@@ -106,6 +108,7 @@ void Test::execute( string cmd ) {
 	else {
 		//cout << "STRING AT AT(1)" << strvctr.at(1) << endl;
 		if(strvctr.size() == 1) {
+			cout << "THIS IS ABOUT TO RUN " << strvctr.at(0) << endl;
 			if(stat(strvctr.at(0).c_str(), &scan) == 0) { 
 				cout << "(True)" << endl;
 				this->set_evaluator(true);
@@ -117,7 +120,8 @@ void Test::execute( string cmd ) {
 				return;
 			}
 		}
-		else {
+		else if (strvctr.size() == 3) {
+			cout << "THIS IS ABOUT TO RUN " << strvctr.at(1) << endl;
 			if(stat(strvctr.at(1).c_str(), &scan) == 0) {
 				cout << "(True)" << endl;
 				this->set_evaluator(true);
@@ -129,5 +133,19 @@ void Test::execute( string cmd ) {
 				return;
 			}
 		}
+		else {
+			cout << "else::THIS IS ABOUT TO RUN " << strvctr.at(2) << endl;
+			if (stat(strvctr.at(2).c_str(), &scan) == 0) {
+				cout << "(True)" << endl;
+                                this->set_evaluator(true);
+                                return;
+                        }
+                        else {
+                                cout << "(False)" << endl;
+                                this->set_evaluator(false);
+                                return;
+                        }
+                }
+
 	}
 }
