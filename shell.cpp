@@ -43,6 +43,7 @@ void Shell::insert(Shell* fExe, Shell* Node){
 			this->parent = Node;
 			Node->leftChild = fExe;
 		}
+
 		else{
 			cout << " ELSE";
 			Shell* temp = fExe;
@@ -154,14 +155,24 @@ void Shell::runInorder(Shell* Node) {
 		} 
 		runInorder(Node->leftChild);
 		Node->execute(Node->type());
+		if(!Node->get_subTree()){
+			subTreeCounter = 1;
+		}	
 		//checks if current Node is ";"
 		if(Node->type() == ";") {
+			if(!Node->get_subTree()) {
+				++mainCounter;
+			}
 			runInorder(Node->rightChild);
 			Node->set_evaluator(true);
 			return;
 		}
 		//checks if current Node is "||"
 		if(Node->type() == "||") {
+			if(!Node->get_subTree()) {
+                                ++mainCounter;
+                        }
+
 			if(Node->leftChild->evaluator()) {
 				Node->set_evaluator(true);
 				return;
@@ -180,6 +191,10 @@ void Shell::runInorder(Shell* Node) {
 		}
 		//checks if current Node is "&&"
 		if(Node->type() == "&&") {
+			if(!Node->get_subTree()) {
+                                ++mainCounter;
+                        }
+
 			if(Node->leftChild->evaluator()) {	
 				runInorder(Node->rightChild);
 				if(Node->rightChild->evaluator()) {
