@@ -25,7 +25,19 @@ void Test::execute( string cmd ) {
 
 	//removes blank spaces and the word "test" that is pushed into 
 	//strvctr if this node is executed after the first cmd is run	
-	if ( !this->get_subTree() ) {	
+	if (this->get_subTree()) {
+		
+		if (subTreeCounter > 1) {
+			if (cmd.find("test") != string::npos) {
+				strvctr.erase(strvctr.begin());
+				strvctr.erase(strvctr.begin());
+			}
+		}
+		else if (subTreeCounter == 1 && cmd.find("test") != string::npos) {
+			strvctr.erase(strvctr.begin());
+		}
+	}
+	if (!this->get_subTree()) {	
 		
 		if ( mainCounter > 1 ) {
 			
