@@ -22,8 +22,14 @@ int main(int, char**){
     Shell* subRoot = NULL;
     bool subTreeExists = false;
     string input;
-
+    
     while(input != "exit") {	
+	int numOP = 0;
+    	int numCP = 0;
+    	int numOB = 0;
+    	int numCB = 0;
+        bool invalid = false;
+
 	input.clear();
 	mainCounter = 1;
 	subTreeCounter = 1;
@@ -34,8 +40,45 @@ int main(int, char**){
 	if(input == "exit") {
 		break;
 	}
-    	char_separator<char> sep("", "|&;[]()");
-	tokenizer<char_separator<char> > tokens(input,sep);	
+	else if(input.size() == 1){
+		cout << "boost libary tokenizer function cannot parse a string with a size of 1" << endl;
+		continue;
+	}
+
+	char_separator<char> sep("","[]()");
+        tokenizer<char_separator<char> > errorTokens(input,sep);
+        for(tokenizer<char_separator<char> >::iterator it = errorTokens.begin();it != errorTokens.end();++it){
+		if(*it == "(") {
+			numOP += 1;
+		}
+		else if (*it == ")") {
+			numCP += 1;
+		}
+		else if (*it == "[") {
+			numOB += 1;
+		}
+		else if(*it == "]") {
+			numCB += 1;
+		}
+		else {
+		
+		}
+	}
+	if(numOP != numCP){
+		cout << "Invalid number of parentheses!!!" << endl;
+		invalid = true;
+	}
+	if(numOB != numCB) {
+		cout << "Invalid number of brackets!!!" << endl;
+		invalid = true;
+	}
+	if(invalid){
+		continue;
+	}
+        
+
+    	char_separator<char> errorSep("", "|&;[]()");
+	tokenizer<char_separator<char> > tokens(input,errorSep);	
 	for(tokenizer<char_separator<char> >::iterator it = tokens.begin();it != tokens.end();++it){
 		cout << *it;
 
@@ -207,20 +250,7 @@ int main(int, char**){
 			}
 		}
 		cout << endl;
-	}		/*	
-			if(subTreeExists){
-					cout << "subTree root :";
-                                	cout << subRoot->type() << endl;
-                                	cout << "Tree root :";
-                                	cout << root->type() << endl;
-                               		root->connectTrees(root, subRoot);
-                                	cout << "trees connected!" << endl;
-                                	cout << "INORDER TREE DISPLAY";
-                                	fExe->display(fExe);
-                                	cout << endl;
-				
-			}
-			*/
+	}	
 
 	cout << "INORDER: " << endl;
 	fExe->display(fExe);
@@ -237,6 +267,7 @@ int main(int, char**){
 	subRoot = NULL;
 	subTreeExists = false;
 	cout << endl;
+	
 
    }
    
