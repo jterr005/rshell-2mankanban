@@ -146,19 +146,25 @@ int main(int, char**){
 			        cout << endl;
 			        subRoot = subfExe->getParent(subfExe);
 				subTreeExists = true;
-				root = fExe->getParent(fExe);
+				if(fExe != NULL){
+					root = fExe->getParent(fExe);
+                                        cout << "subTree root :";
+                                        cout << subRoot->type() << endl;
+                                        cout << "Tree root :";
+                                        cout << root->type() << endl;
+                                        root->connectTrees(root, subRoot);
+                                        cout << "trees connected!" << endl;
+                                        cout << "INORDER TREE DISPLAY";
+                                        fExe->display(fExe);
+                                        cout << endl;
+                        	}
+				else {
+					fExe = subRoot->getFExe(subRoot);
+				}
+
+                                
+
 				
-				/*
-				cout << "subTree root :";
-				cout << subRoot->type() << endl;
-				cout << "Tree root :";
-				cout << root->type() << endl;
-				root->connectTrees(root, subRoot);
-				cout << "trees connected!" << endl;
-				cout << "INORDER TREE DISPLAY";
-				fExe->display(fExe);
-				cout << endl;
-				*/
 		}
 			
 		else{
@@ -201,19 +207,20 @@ int main(int, char**){
 			}
 		}
 		cout << endl;
-	}			
+	}		/*	
 			if(subTreeExists){
-				cout << "subTree root :";
-                                cout << subRoot->type() << endl;
-                                cout << "Tree root :";
-                                cout << root->type() << endl;
-                                root->connectTrees(root, subRoot);
-                                cout << "trees connected!" << endl;
-                                cout << "INORDER TREE DISPLAY";
-                                fExe->display(fExe);
-                                cout << endl;
+					cout << "subTree root :";
+                                	cout << subRoot->type() << endl;
+                                	cout << "Tree root :";
+                                	cout << root->type() << endl;
+                               		root->connectTrees(root, subRoot);
+                                	cout << "trees connected!" << endl;
+                                	cout << "INORDER TREE DISPLAY";
+                                	fExe->display(fExe);
+                                	cout << endl;
+				
 			}
-
+			*/
 
 	cout << "INORDER: " << endl;
 	fExe->display(fExe);
