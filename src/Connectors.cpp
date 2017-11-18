@@ -27,20 +27,7 @@ string Connectors::type(){
 }
 
 void Connectors::execute(string cntr) {
-/*	bool temp = false;
-	
-	if(this->cntr == "&&") {
-		temp = this->leftChild->evaluator();
-		if(temp == false) {
-			this->success = false;
-			return;
-		}
-		if(temp == true) {
-			this->rightChild->execute(rightChild->type());
-			temp = this->rightChild->evaluator();
-			if(temp == false) {
-				this->success = false;
-				return;
+/*
 			}
 			else {
 				this->success = true;
