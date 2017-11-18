@@ -36,6 +36,7 @@ void Test::execute( string cmd ) {
 		else if (subTreeCounter == 1 && cmd.find("test") != string::npos) {
 			strvctr.erase(strvctr.begin());
 		}
+		++subTreeCounter;
 	}
 	if (!this->get_subTree()) {	
 		
@@ -53,10 +54,8 @@ void Test::execute( string cmd ) {
 		else if ( mainCounter == 1 &&  cmd.find( "test" ) != string::npos ) {
 			strvctr.erase( strvctr.begin() );
 		}
-
+		++mainCounter;
 	}
-	 	
-	++mainCounter;
 	
 	//beings actual execution of cmd
 	struct stat scan;
