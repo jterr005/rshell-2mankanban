@@ -38,6 +38,7 @@ class Shell {
 		void connectTrees(Shell* root, Shell* subRoot);
 		void set_subTree(bool);
 		bool get_subTree();
+		Shell* getFExe(Shell* root);
 
 };
 #endif

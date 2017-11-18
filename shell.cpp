@@ -241,6 +241,15 @@ void Shell::connectTrees(Shell* root, Shell* subRoot){
 	subRoot->parent = root;
 
 }
+Shell* Shell::getFExe(Shell* root){
+	Shell* temp = root;
+	
+	while(temp->leftChild != NULL){
+		temp = temp->leftChild;
+	}
+	return temp;
+
+}
 
 
 
