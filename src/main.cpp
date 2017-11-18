@@ -192,19 +192,47 @@ int main(int, char**){
 				}
 
 				else{
-                        		cout << " SUB ARRG ";
-                        		string arrg  = *subIt;
-                        		Executables* node = new Executables(arrg);
-					node->set_subTree(true);
-                        		cout << "NODE created";
+					string arrg  = *subIt;
+                        		if(arrg.at(0) == 't' && arrg.at(1) == 'e' && arrg.at(2) == 's' && arrg.at(3) == 't'){
+                                		cout << " TEST ";
+                                		Test* node = new Test(arrg);
+                                		cout << "NODE created";
+                                        	if(subfExe == NULL){
+                                                	subfExe = node;
+                                                	cout << " test root created";
+                                        	}	
+                                        	else{
+                                                	subfExe->insert(subfExe,node);
+                                        	}
+                        		}
+                        		else if(arrg.at(1) == 't' && arrg.at(2) == 'e' && arrg.at(3) == 's' && arrg.at(4) == 't'){
+                                		cout << " TEST ";
+                                		Test* node = new Test(arrg);
+                                		cout << "NODE created";
+                                        	if(subfExe == NULL){
+                                                	subfExe = node;
+                                                	cout << " test root created";
+                                        	}
+                                        	else{
+                                                	subfExe->insert(subfExe,node);
+                                       		}
+                        		}
+
+					else {
+                        			cout << " SUB ARRG ";
+                        			string arrg  = *subIt;
+                        			Executables* node = new Executables(arrg);
+						node->set_subTree(true);
+                        			cout << "NODE created";
                                 	
-					if(subfExe == NULL){
-                                        	subfExe = node;
-                                        	cout << "sub root created";
-                                	}
-                                	else{
-                                        	subfExe->insert(subfExe,node);
-                                	}
+						if(subfExe == NULL){
+                                        		subfExe = node;
+                                        		cout << "sub root created";
+                                		}
+                                		else{
+                                        		subfExe->insert(subfExe,node);
+                                		}
+					}
                 		}
 
 				
