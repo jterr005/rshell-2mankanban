@@ -44,7 +44,7 @@ int main(int, char**){
 		continue;
 	}
 
-	char_separator<char> sep("","[]()");
+	char_separator<char> sep("","[]()|&;");
         tokenizer<char_separator<char> > errorTokens(input,sep);
         for(tokenizer<char_separator<char> >::iterator it = errorTokens.begin();it != errorTokens.end();++it){
 		if(*it == "(") {
@@ -58,6 +58,10 @@ int main(int, char**){
 		}
 		else if(*it == "]") {
 			numCB += 1;
+		}
+		else if(*it == " exit") {
+			cout << "exited";
+			return 0;
 		}
 		else {
 		
