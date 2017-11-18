@@ -3,64 +3,76 @@
 
 using namespace std;
 
-Test::Test(string input){
+Test::Test( string input ) {
 	this->test = input;
 }
+
 string Test::type(){
 	return this->test;
 }
-void Test::execute(string cmd){
+
+void Test::execute( string cmd ) {
+	vector<string> strvctr;
+
+	//cout << "This is the cmd for test: " << endl;
+
 	//Removes brackets from cmd
-	cout << "This is the cmd for test: " << endl;	
-	
-	cmd.erase(std::remove(cmd.begin(), cmd.end(), '['), cmd.end());
-	cmd.erase(std::remove(cmd.begin(), cmd.end(), ']'), cmd.end());
+	cmd.erase( std::remove( cmd.begin(), cmd.end(), '[' ), cmd.end() );
+	cmd.erase( std::remove( cmd.begin(), cmd.end(), ']' ), cmd.end() );
 	
 	//Removes whitespace from cmd and parses cmd into vector
-	vector<string> strvctr;
-	boost::split(strvctr, cmd, boost::is_any_of(" "));
+	boost::split( strvctr, cmd, boost::is_any_of( " " ) );
 
-	if(!this->get_subTree()) {	
-		if(mainCounter > 1) {
-			if( cmd.find("test") != string::npos) {
-				cout << strvctr.at(0) << endl;
-				strvctr.erase(strvctr.begin());
-				cout << strvctr.at(0) << endl;
-				strvctr.erase(strvctr.begin());
-				cout << strvctr.at(0) << endl;
+	//removes blank spaces and the word "test" that is pushed into strvctr if this node is executed after the first cmd is run	
+	if ( !this->get_subTree() ) {	
+		
+		if ( mainCounter > 1 ) {
 			
+			if ( cmd.find( "test" ) != string::npos ) {
+				strvctr.erase( strvctr.begin() );
+				strvctr.erase( strvctr.begin() );
 			}
+
 		}
-		else if (mainCounter == 1 &&  cmd.find("test") != string::npos) {
-			cout << "strvctr.at(0) is " << strvctr.at(0) << endl;
-			strvctr.erase(strvctr.begin());
-			cout << "strvctr.at(0) is " << strvctr.at(0) << " after deleting first vector" << endl;
+		
+		//removes the word "test" that is pushed into strvctr if this node is executed after the first cmd is run
+		else if ( mainCounter == 1 &&  cmd.find( "test" ) != string::npos ) {
+			strvctr.erase( strvctr.begin() );
 		}
+
 	}
 	 	
 	++mainCounter;
+	
+	//beings actual execution of cmd
 	struct stat scan;
-	if(strvctr.at(0) == "-e") {
-		if(stat(strvctr.at(1).c_str(), &scan) == 0) {
+
+	if ( strvctr.at( 0 ) == "-e" ) {
+		
+		if ( stat( strvctr.at( 1 ).c_str(), &scan ) == 0 ) {
 			cout << "(True)" << endl;
-			this->set_evaluator(true);
+			this->set_evaluator( true );
 			return;
 		}
+		
 		else {
 			cout << "(False)" << endl;
-			this->set_evaluator(false);
+			this->set_evaluator( false );
 			return;
 		}
+
 	}
-	if(strvctr.at(0) == "-f") {
-		if(stat(strvctr.at(1).c_str(), &scan) == 0 && S_ISREG(scan.st_mode)) {
+
+	if ( strvctr.at( 0 ) == "-f" ) {
+		
+		if ( stat( strvctr.at( 1 ).c_str(), &scan ) == 0 && S_ISREG( scan.st_mode ) ) {
 			cout << "(True)" << endl;
-			this->set_evaluator(true);
+			this->set_evaluator( true );
 			return;
 		}
 		else {
 			cout << "(False)" << endl;
-			this->set_evaluator(false);
+			this->set_evaluator( false );
 			return;
 		}
 	}
