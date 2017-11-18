@@ -144,7 +144,7 @@ int main(int, char**){
 			Shell* subfExe = NULL;
 		
 	
-			char_separator<char> subSep("", "|&;()");
+			char_separator<char> subSep("", "|&;()[]");
 			cout << "char sep worked" << endl;
         		tokenizer<char_separator<char> > subTokens(subTree,subSep);
 			cout << " tokenizer worked" << endl;
@@ -166,6 +166,29 @@ int main(int, char**){
 				else if(*subIt == "(" || *subIt == ")" || *subIt == "" || *subIt == " "){
 					
 				}
+				else if(*subIt == "["){
+                        		cout << " BRACKET ";
+                        		string testBracket = *subIt;
+                        		++subIt;
+                        		while(*subIt != "]"){
+					       testBracket += *subIt;
+                               			 ++subIt;
+                       			 }
+
+                        		testBracket += "]";
+					Test* node = new Test(testBracket);
+                        		cout << "NODE created";
+
+                                	if(subfExe == NULL){
+                                        	subfExe = node;
+                                        	cout << " test node root created";
+                                	}
+                                	else{
+                                        	subfExe->insert(subfExe,node);
+                                	}
+
+				}
+
 				else{
                         		cout << " SUB ARRG ";
                         		string arrg  = *subIt;
