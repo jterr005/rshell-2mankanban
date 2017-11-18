@@ -89,7 +89,7 @@ int main(int, char**){
 				cout << " CTR ";
 				string ctr = *it;
 				Connectors* node = new Connectors(ctr);
-				cout << "NODE created";
+			//	cout << "NODE created";
 				fExe->insert(fExe,node);
 			if(*it == "&" || *it == "|"){
 				++it;			
