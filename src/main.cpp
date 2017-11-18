@@ -179,6 +179,7 @@ int main(int, char**){
 
                         		testBracket += "]";
 					Test* node = new Test(testBracket);
+					node->set_subTree(true);
                         		cout << "NODE created";
 
                                 	if(subfExe == NULL){
@@ -196,6 +197,7 @@ int main(int, char**){
                         		if(arrg.at(0) == 't' && arrg.at(1) == 'e' && arrg.at(2) == 's' && arrg.at(3) == 't'){
                                 		cout << " TEST ";
                                 		Test* node = new Test(arrg);
+						node->set_subTree(true);
                                 		cout << "NODE created";
                                         	if(subfExe == NULL){
                                                 	subfExe = node;
@@ -208,6 +210,7 @@ int main(int, char**){
                         		else if(arrg.at(1) == 't' && arrg.at(2) == 'e' && arrg.at(3) == 's' && arrg.at(4) == 't'){
                                 		cout << " TEST ";
                                 		Test* node = new Test(arrg);
+						node->set_subTree(true);
                                 		cout << "NODE created";
                                         	if(subfExe == NULL){
                                                 	subfExe = node;
