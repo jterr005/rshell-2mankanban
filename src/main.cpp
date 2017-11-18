@@ -43,7 +43,7 @@ int main(int, char**){
 		cout << "boost libary tokenizer function cannot parse a string with a size of 1" << endl;
 		continue;
 	}
-
+//checks for () / [] inbalance
 	char_separator<char> sep("","[]()|&;");
         tokenizer<char_separator<char> > errorTokens(input,sep);
         for(tokenizer<char_separator<char> >::iterator it = errorTokens.begin();it != errorTokens.end();++it){
@@ -83,10 +83,10 @@ int main(int, char**){
     	char_separator<char> errorSep("", "|&;[]()#");
 	tokenizer<char_separator<char> > tokens(input,errorSep);	
 	for(tokenizer<char_separator<char> >::iterator it = tokens.begin();it != tokens.end();++it){
-		cout << *it;
+		//cout << *it;
 
 		if(*it == "&" || *it == "|" || *it == ";"){
-				cout << " CTR ";
+			//	cout << " CTR ";
 				string ctr = *it;
 				Connectors* node = new Connectors(ctr);
 			//	cout << "NODE created";
@@ -102,7 +102,7 @@ int main(int, char**){
 			break;
 		}	
 		else if(*it == "["){
-			cout << " BRACKET ";
+			//cout << " BRACKET ";
 		
 	
 			string testBracket = *it;
@@ -116,10 +116,10 @@ int main(int, char**){
 			testBracket += "]";
 			//cout << testBracket << endl;
 			Test* node = new Test(testBracket);
-			cout << "NODE created";
+			//cout << "NODE created";
 				if(fExe == NULL){
 					fExe = node;
-					cout << " test node root created";
+					//cout << " test node root created";
 				}
 				else{
 					fExe->insert(fExe,node);
@@ -128,7 +128,7 @@ int main(int, char**){
 		}
 			
 		else if(*it == "("){
-			cout << " parentheses " << endl;
+			//cout << " parentheses " << endl;
 			
 			string subTree = *it;
 			int numOp = 1;
@@ -146,23 +146,23 @@ int main(int, char**){
 					++it;
 				}
 			}
-			cout << "subtree will contain: " << subTree << endl;
+			//cout << "subtree will contain: " << subTree << endl;
 			Shell* subfExe = NULL;
 		
 	
 			char_separator<char> subSep("", "|&;()[]");
-			cout << "char sep worked" << endl;
+			//cout << "char sep worked" << endl;
         		tokenizer<char_separator<char> > subTokens(subTree,subSep);
-			cout << " tokenizer worked" << endl;
+			//cout << " tokenizer worked" << endl;
        			 for(tokenizer<char_separator<char> >::iterator subIt = subTokens.begin();subIt != subTokens.end();++subIt){
 				cout << *subIt;
 				
 				if(*subIt == "&" || *subIt == "|" || *subIt == ";"){
-                                	cout << " SUB CTR ";
+                                	//cout << " SUB CTR ";
                                 	string ctr = *subIt;
                                 	Connectors* node = new Connectors(ctr);
 					node->set_subTree(true);
-                                	cout << "NODE created";
+                                	//cout << "NODE created";
                                 	subfExe->insert(subfExe,node);
 
                         		if(*subIt == "&" || *subIt == "|"){
@@ -173,7 +173,7 @@ int main(int, char**){
 					
 				}
 				else if(*subIt == "["){
-                        		cout << " BRACKET ";
+                        		//cout << " BRACKET ";
                         		string testBracket = *subIt;
                         		++subIt;
                         		while(*subIt != "]"){
@@ -184,11 +184,11 @@ int main(int, char**){
                         		testBracket += "]";
 					Test* node = new Test(testBracket);
 					node->set_subTree(true);
-                        		cout << "NODE created";
+                        		//cout << "NODE created";
 
                                 	if(subfExe == NULL){
                                         	subfExe = node;
-                                        	cout << " test node root created";
+                                        	//cout << " test node root created";
                                 	}
                                 	else{
                                         	subfExe->insert(subfExe,node);
@@ -199,26 +199,26 @@ int main(int, char**){
 				else{
 					string arrg  = *subIt;
                         		if(arrg.at(0) == 't' && arrg.at(1) == 'e' && arrg.at(2) == 's' && arrg.at(3) == 't'){
-                                		cout << " TEST ";
+                                		//cout << " TEST ";
                                 		Test* node = new Test(arrg);
 						node->set_subTree(true);
-                                		cout << "NODE created";
+                                		//cout << "NODE created";
                                         	if(subfExe == NULL){
                                                 	subfExe = node;
-                                                	cout << " test root created";
+                                                	//cout << " test root created";
                                         	}	
                                         	else{
                                                 	subfExe->insert(subfExe,node);
                                         	}
                         		}
                         		else if(arrg.at(1) == 't' && arrg.at(2) == 'e' && arrg.at(3) == 's' && arrg.at(4) == 't'){
-                                		cout << " TEST ";
+                                		//cout << " TEST ";
                                 		Test* node = new Test(arrg);
 						node->set_subTree(true);
-                                		cout << "NODE created";
+                                		//cout << "NODE created";
                                         	if(subfExe == NULL){
                                                 	subfExe = node;
-                                                	cout << " test root created";
+                                                	//cout << " test root created";
                                         	}
                                         	else{
                                                 	subfExe->insert(subfExe,node);
@@ -226,15 +226,15 @@ int main(int, char**){
                         		}
 
 					else {
-                        			cout << " SUB ARRG ";
+                        			//cout << " SUB ARRG ";
                         			string arrg  = *subIt;
                         			Executables* node = new Executables(arrg);
 						node->set_subTree(true);
-                        			cout << "NODE created";
+                        			//cout << "NODE created";
                                 	
 						if(subfExe == NULL){
                                         		subfExe = node;
-                                        		cout << "sub root created";
+                                        		//cout << "sub root created";
                                 		}
                                 		else{
                                         		subfExe->insert(subfExe,node);
@@ -244,21 +244,21 @@ int main(int, char**){
 
 				
 			}
-			     cout << "SUBTREE INORDER: " << endl;
-     				subfExe->display(subfExe);
-			        cout << endl;
+			     //cout << "SUBTREE INORDER: " << endl;
+     				//subfExe->display(subfExe);
+			        //cout << endl;
 			        subRoot = subfExe->getParent(subfExe);
 				if(fExe != NULL){
 					root = fExe->getParent(fExe);
-                                        cout << "subTree root :";
-                                        cout << subRoot->type() << endl;
-                                        cout << "Tree root :";
-                                        cout << root->type() << endl;
+                                       // cout << "subTree root :";
+                                       // cout << subRoot->type() << endl;
+                                       // cout << "Tree root :";
+                                        //cout << root->type() << endl;
                                         root->connectTrees(root, subRoot);
-                                        cout << "trees connected!" << endl;
-                                        cout << "INORDER TREE DISPLAY";
-                                        fExe->display(fExe);
-                                        cout << endl;
+                                        //cout << "trees connected!" << endl;
+                                        //cout << "INORDER TREE DISPLAY";
+                                        //fExe->display(fExe);
+                                        //cout << endl;
                         	}
 				else {
 					fExe = subRoot->getFExe(subRoot);
@@ -272,59 +272,59 @@ int main(int, char**){
 		else{
 			string arrg  = *it;
 			if(arrg.at(0) == 't' && arrg.at(1) == 'e' && arrg.at(2) == 's' && arrg.at(3) == 't'){
-				cout << " TEST ";
+				//cout << " TEST ";
 				Test* node = new Test(arrg);
-				cout << "NODE created";
+				//cout << "NODE created";
 					if(fExe == NULL){
 						fExe = node;
-						cout << " test root created";
+						//cout << " test root created";
 					}
 					else{
 						fExe->insert(fExe,node);
 					}
 			}
 			else if(arrg.at(1) == 't' && arrg.at(2) == 'e' && arrg.at(3) == 's' && arrg.at(4) == 't'){
-                                cout << " TEST ";
+                                //cout << " TEST ";
                                 Test* node = new Test(arrg);
-                                cout << "NODE created";
+                                //cout << "NODE created";
                                         if(fExe == NULL){
                                                 fExe = node;
-                                                cout << " test root created";
+                                                //cout << " test root created";
                                         }
                                         else{
                                                 fExe->insert(fExe,node);
                                         }
                         }
 			else{
-				cout << " ARRG ";
+				//cout << " ARRG ";
 				Executables* node = new Executables(arrg);
-				cout << "NODE created";
+				//cout << "NODE created";
 					if(fExe == NULL){
 						fExe = node;
-						cout << " root created";
+						//cout << " root created";
 					}	
 					else{
 						fExe->insert(fExe,node);
 					}
 			}
 		}
-		cout << endl;
+		//cout << endl;
 	}	
 
-	cout << "INORDER: " << endl;
-	fExe->display(fExe);
-	cout << endl;
+	//cout << "INORDER: " << endl;
+	//fExe->display(fExe);
+	//cout << endl;
 
-	cout << "Running commands: " << endl;
+	//cout << "Running commands: " << endl;
 	fExe->run(fExe);
-	cout << endl;
+	//cout << endl;
 
-	cout << "Deleting commands: " << endl;
+	//cout << "Deleting commands: " << endl;
 	fExe->deleteTree(fExe);
 	fExe = NULL;
 	root = NULL;
 	subRoot = NULL;
-	cout << endl;
+	//cout << endl;
 	
 
    }
