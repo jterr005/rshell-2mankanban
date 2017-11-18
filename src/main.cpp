@@ -76,7 +76,7 @@ int main(int, char**){
 	}
         
 
-    	char_separator<char> errorSep("", "|&;[]()");
+    	char_separator<char> errorSep("", "|&;[]()#");
 	tokenizer<char_separator<char> > tokens(input,errorSep);	
 	for(tokenizer<char_separator<char> >::iterator it = tokens.begin();it != tokens.end();++it){
 		cout << *it;
@@ -93,6 +93,9 @@ int main(int, char**){
 		}
 		else if(*it == "" || *it == " "){
 
+		}
+		else if(*it == "#"){
+			break;
 		}	
 		else if(*it == "["){
 			cout << " BRACKET ";
