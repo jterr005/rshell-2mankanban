@@ -10,7 +10,8 @@ class Connectors: public Shell {
         public:
                 void execute(std::string);
 		Connectors(std::string input);
-		std::string type();	
+		std::string type();
+		
 
 };
 #endif

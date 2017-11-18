@@ -10,9 +10,8 @@ class Executables : public Shell {
                 std::string argmnt;
         public:
 		Executables(std::string input);
-                void execute(std::string);
+		void execute(std::string);
 		std::string type();
-
 };
 #endif
 

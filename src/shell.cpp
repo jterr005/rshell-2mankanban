@@ -57,8 +57,6 @@ void Shell::insert(Shell* fExe, Shell* Node){
 	}
 	else if(type == "" || type == " "){
 		cout << " EMPTY NODE!!!!!!";
-		delete Node;
-		cout << " EMTPY NODE DELETED";
 	}
 	else{
 		cout << " arg statement";
@@ -94,8 +92,6 @@ void Shell::subTreeInsert(Shell* subfExe, Shell* node){
 	}
 	else if(type == "" || type == " "){
                 cout << " EMPTY NODE!!!!!!";
-                delete node;
-                cout << " EMTPY NODE DELETED";
         }
 	else{
 		cout << " sub arg statement";
@@ -109,8 +105,6 @@ void Shell::subTreeInsert(Shell* subfExe, Shell* node){
 }
 
 void Shell::display(Shell* fExe){
-	Shell* temp = fExe;
-		
 	if(fExe->parent == NULL){
 		Inorder(fExe);
 	}
@@ -234,8 +228,8 @@ void Shell:: deleteTree(Shell* fExe) {
 void Shell::deleteInorder(Shell* Node) {
 	if(Node != NULL) {
 		deleteInorder(Node->leftChild);
-		delete Node;
 		deleteInorder(Node->rightChild);
+		delete Node;
 	}
 	return;
 }

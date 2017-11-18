@@ -20,7 +20,6 @@ int main(int, char**){
     Shell* fExe = NULL;
     Shell* root = NULL;
     Shell* subRoot = NULL;
-    bool subTreeExists = false;
     string input;
     
     while(input != "exit") {	
@@ -211,7 +210,6 @@ int main(int, char**){
      				subfExe->display(subfExe);
 			        cout << endl;
 			        subRoot = subfExe->getParent(subfExe);
-				subTreeExists = true;
 				if(fExe != NULL){
 					root = fExe->getParent(fExe);
                                         cout << "subTree root :";
@@ -288,7 +286,6 @@ int main(int, char**){
 	fExe = NULL;
 	root = NULL;
 	subRoot = NULL;
-	subTreeExists = false;
 	cout << endl;
 	
 

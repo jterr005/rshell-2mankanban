@@ -20,6 +20,7 @@ void Executables::execute( string cmd ) {
 	int size = 0;
 	int status = 0;
 	vector<string> strvctr;
+	char* argmts[1028];
 	stringstream ss;
 	string tmp;
 
@@ -51,9 +52,7 @@ void Executables::execute( string cmd ) {
 		}
 		
 		++mainCounter;		
-	}
-	
-	char* argmts[ size + 1 ];	
+	}	
 	
 	//Fills argmts array with cmd
 	while ( size > 0 ) {
@@ -96,3 +95,4 @@ void Executables::execute( string cmd ) {
 	}
 
 }
+

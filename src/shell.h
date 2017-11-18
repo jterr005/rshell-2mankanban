@@ -21,6 +21,7 @@ class Shell {
 		
         public:
 		Shell();
+		virtual ~Shell() {} ;
                 virtual void execute(std::string) = 0;
                	void testNodeInsert(Shell* fExe, Shell* testNode);
                 void set_evaluator(bool);
@@ -39,7 +40,7 @@ class Shell {
 		void set_subTree(bool);
 		bool get_subTree();
 		Shell* getFExe(Shell* root);
-
+		
 };
 #endif
 
