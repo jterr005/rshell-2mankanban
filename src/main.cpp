@@ -176,6 +176,7 @@ int main(int, char**){
 
                         		testBracket += "]";
 					Test* node = new Test(testBracket);
+					node->set_subTree(true);
                         		cout << "NODE created";
 
                                 	if(subfExe == NULL){
