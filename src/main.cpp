@@ -43,7 +43,7 @@ int main(int, char**){
 		cout << "boost libary tokenizer function cannot parse a string with a size of 1" << endl;
 		continue;
 	}
-
+//checks for () / [] inbalance
 	char_separator<char> sep("","[]()|&;");
         tokenizer<char_separator<char> > errorTokens(input,sep);
         for(tokenizer<char_separator<char> >::iterator it = errorTokens.begin();it != errorTokens.end();++it){
