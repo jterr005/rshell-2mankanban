@@ -23,8 +23,22 @@ void Test::execute( string cmd ) {
 	//Removes whitespace from cmd and parses cmd into vector
 	boost::split( strvctr, cmd, boost::is_any_of( " " ) );
 
-	//removes blank spaces and the word "test" that is pushed into strvctr if this node is executed after the first cmd is run	
-	if ( !this->get_subTree() ) {	
+	//removes blank spaces and the word "test" that is pushed into 
+	//strvctr if this node is executed after the first cmd is run	
+	if (this->get_subTree()) {
+		
+		if (subTreeCounter > 1) {
+			if (cmd.find("test") != string::npos) {
+				strvctr.erase(strvctr.begin());
+				strvctr.erase(strvctr.begin());
+			}
+		}
+		else if (subTreeCounter == 1 && cmd.find("test") != string::npos) {
+			strvctr.erase(strvctr.begin());
+		}
+		++subTreeCounter;
+	}
+	if (!this->get_subTree()) {	
 		
 		if ( mainCounter > 1 ) {
 			
@@ -35,14 +49,13 @@ void Test::execute( string cmd ) {
 
 		}
 		
-		//removes the word "test" that is pushed into strvctr if this node is executed after the first cmd is run
+		//removes the word "test" that is pushed into strvctr if 
+		//this node is executed after the first cmd is run
 		else if ( mainCounter == 1 &&  cmd.find( "test" ) != string::npos ) {
 			strvctr.erase( strvctr.begin() );
 		}
-
+		++mainCounter;
 	}
-	 	
-	++mainCounter;
 	
 	//beings actual execution of cmd
 	struct stat scan;
