@@ -10,6 +10,7 @@ using namespace std;
 Shell::Shell(){
         this->prompt = '$';
         this->success = 1;
+	this->subTree = false;
 	this->parent = NULL;
 	this->leftChild = NULL;
 	this->rightChild = NULL;
@@ -21,6 +22,14 @@ bool Shell::evaluator() {
 
 void Shell::set_evaluator(bool statement) {
 	this->success = statement;
+}
+	
+void Shell::set_subTree(bool statement) {
+	this->subTree = statement;
+}
+
+bool Shell::get_subTree() {
+	return this->subTree;
 }
 
 void Shell::insert(Shell* fExe, Shell* Node){
@@ -115,7 +124,7 @@ void Shell::display(Shell* fExe){
 void Shell::Inorder(Shell* Node){
 	if(Node != NULL){
 		Inorder(Node->leftChild);
-		cout << " " <<Node->type() << " ";
+		cout << " " <<Node->type();
 		Inorder(Node->rightChild);
 	}
 }

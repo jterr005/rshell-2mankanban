@@ -16,7 +16,7 @@ string Executables::type(){
 }
 
 void Executables::execute(string cmd) {
-	//cout << "Start of execute function: " <<  cmd << endl;
+	cout << "Start of execute function: " <<  cmd << endl;
 	stringstream ss;
 	string tmp;
 	ss << cmd;
@@ -33,25 +33,35 @@ void Executables::execute(string cmd) {
 	
 	vector<string> strvctr;
 	boost::split(strvctr, argmnt, boost::is_any_of(" "));
-	//cout << "This is what is in vector after parsing " << strvctr.at(0) << endl;
-	
-	if(mainCounter > 1) {
-		strvctr.erase(strvctr.begin());
+	cout << "This is what is in vector after parsing " << strvctr.at(0) << endl;
 		
+	if(this->get_subTree()) {
+		cout << "entered subTree TEST: " << endl;
+		if(subTreeCounter > 1) {
+			strvctr.erase(strvctr.begin());
+		}
+		++subTreeCounter;
+	}
+
+	else {
+		if(mainCounter > 1) {
+			strvctr.erase(strvctr.begin());
+			cout << "This is what is in vecotr.at(0) after erasing " << strvctr.at(0) << endl;	
+		}
+		++mainCounter;		
 	}
 	
 	char* argmts[size + 1];	
 	
 	
 	while (size > 0 ) {
-		//cout << "PROCESSING " << strvctr.at(i) << endl;
+		cout << "PROCESSING " << strvctr.at(i) << endl;
 		
 		argmts[i] = (char*)strvctr.at(i).c_str();
 		++i;
 		--size;
 	}
 	argmts[i] = NULL;
-	++mainCounter;
 	
 	pid_t pid = fork();
 	if(pid == 0) { //CHILD PROCESS

@@ -14,6 +14,7 @@ using namespace boost;
 
 //This is the assignment of a global variable declared somewhere else
 int mainCounter = 1;
+int subTreeCounter = 1;
 
 int main(int, char**){
     Shell* fExe = NULL;
@@ -25,6 +26,7 @@ int main(int, char**){
     while(input != "exit") {	
 	input.clear();
 	mainCounter = 1;
+	subTreeCounter = 1;
     	cout << "$ ";
 	fExe = NULL;
     	getline(cin, input);
@@ -110,6 +112,7 @@ int main(int, char**){
                                 	cout << " SUB CTR ";
                                 	string ctr = *subIt;
                                 	Connectors* node = new Connectors(ctr);
+					node->set_subTree(true);
                                 	cout << "NODE created";
                                 	subfExe->insert(subfExe,node);
 
@@ -124,6 +127,7 @@ int main(int, char**){
                         		cout << " SUB ARRG ";
                         		string arrg  = *subIt;
                         		Executables* node = new Executables(arrg);
+					node->set_subTree(true);
                         		cout << "NODE created";
                                 	
 					if(subfExe == NULL){
@@ -143,6 +147,7 @@ int main(int, char**){
 			        subRoot = subfExe->getParent(subfExe);
 				subTreeExists = true;
 				root = fExe->getParent(fExe);
+				
 				/*
 				cout << "subTree root :";
 				cout << subRoot->type() << endl;

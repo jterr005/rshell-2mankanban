@@ -8,11 +8,13 @@
 #include <sys/stat.h>
 
 extern int mainCounter;
+extern int subTreeCounter;
 
 class Shell {
 	protected:
 		char prompt;
 		bool success;
+		bool subTree;
 		Shell* parent;
 		Shell* rightChild;
 		Shell* leftChild;
@@ -34,6 +36,8 @@ class Shell {
 		void deleteInorder(Shell*);
 		Shell* getParent(Shell* subfExe);
 		void connectTrees(Shell* root, Shell* subRoot);
+		void set_subTree(bool);
+		bool get_subTree();
 
 };
 #endif

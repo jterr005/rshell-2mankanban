@@ -19,21 +19,23 @@ void Test::execute(string cmd){
 	//Removes whitespace from cmd and parses cmd into vector
 	vector<string> strvctr;
 	boost::split(strvctr, cmd, boost::is_any_of(" "));
-	
-	if(mainCounter > 1) {
-		if( cmd.find("test") != string::npos) {
-			cout << strvctr.at(0) << endl;
-			strvctr.erase(strvctr.begin());
-			cout << strvctr.at(0) << endl;
-			strvctr.erase(strvctr.begin());
-			cout << strvctr.at(0) << endl;
+
+	if(!this->get_subTree()) {	
+		if(mainCounter > 1) {
+			if( cmd.find("test") != string::npos) {
+				cout << strvctr.at(0) << endl;
+				strvctr.erase(strvctr.begin());
+				cout << strvctr.at(0) << endl;
+				strvctr.erase(strvctr.begin());
+				cout << strvctr.at(0) << endl;
 			
+			}
 		}
-	}
-	else if (mainCounter == 1 &&  cmd.find("test") != string::npos) {
-		cout << "strvctr.at(0) is " << strvctr.at(0) << endl;
-		strvctr.erase(strvctr.begin());
-		cout << "strvctr.at(0) is " << strvctr.at(0) << " after deleting first vector" << endl;
+		else if (mainCounter == 1 &&  cmd.find("test") != string::npos) {
+			cout << "strvctr.at(0) is " << strvctr.at(0) << endl;
+			strvctr.erase(strvctr.begin());
+			cout << "strvctr.at(0) is " << strvctr.at(0) << " after deleting first vector" << endl;
+		}
 	}
 	 	
 	++mainCounter;
