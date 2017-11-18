@@ -33,91 +33,99 @@ bool Shell::get_subTree() {
 }
 
 void Shell::insert(Shell* fExe, Shell* Node){
-	cout << " entered insert function";
+	//cout << " entered insert function";
 	
 	string type = Node->type();
-	 if(type == "&&" || type  == "||" || type == ";"){
-		cout << " connector statement";
+	 if (type == "&&" || type  == "||" || type == ";" ){
+		//cout << " connector statement";
 		if(this->parent == NULL){
-		cout << " IF ";
+		//cout << " IF ";
 			this->parent = Node;
 			Node->leftChild = fExe;
 		}
 
 		else{
-			cout << " ELSE";
+			//cout << " ELSE";
 			Shell* temp = fExe;
-			while(temp->parent != NULL){
+			while (temp->parent != NULL) {
 				temp = temp->parent;
 			}
+
 			temp->parent = Node;
 			Node->leftChild = temp;
 		}
 
 	}
-	else if(type == "" || type == " "){
-		cout << " EMPTY NODE!!!!!!";
+	else if (type == "" || type == " " ){
+		//cout << " EMPTY NODE!!!!!!";
 	}
+
 	else{
-		cout << " arg statement";
+		//cout << " arg statement";
 		Shell* temp = fExe;
-		while(temp->parent != NULL){
+		while (temp->parent != NULL) {
 			temp = temp->parent;
 		}
+
 		temp->rightChild = Node;
 		Node->parent = temp;
 		
 	}
-	cout << " exited insert function " << endl;
+	//cout << " exited insert function " << endl;
 	
 }
 void Shell::subTreeInsert(Shell* subfExe, Shell* node){
-	cout << " entered subtree insert function";
+	//cout << " entered subtree insert function";
 	
 	string type = node->type();
-	if(type == "&&" || type == "||" || type == ";"){
-		cout << " subtree connector statement";
-		if(this->parent == NULL){
+	if (type == "&&" || type == "||" || type == ";") {
+		//cout << " subtree connector statement";
+		if (this->parent == NULL) {
 			this->parent = node;
 			node->rightChild = subfExe;
 		}
+
 		else{
 			Shell* temp = subfExe;
-			while(temp->parent != NULL){
+			while (temp->parent != NULL) {
 				temp = temp->parent;
 			}
+
 			temp->parent = node;
 			node->rightChild = temp;
 		}
 	}
-	else if(type == "" || type == " "){
-                cout << " EMPTY NODE!!!!!!";
+	else if (type == "" || type == " ") {
+                //cout << " EMPTY NODE!!!!!!";
         }
 	else{
-		cout << " sub arg statement";
+		//cout << " sub arg statement";
 		Shell* temp = subfExe;
-		while(temp->parent != NULL){
+		while (temp->parent != NULL) {
 			temp = temp->parent;
 		}
+
 		temp->leftChild = node;
 		node->parent = temp;
 	}
 }
 
 void Shell::display(Shell* fExe){
-	if(fExe->parent == NULL){
+	if (fExe->parent == NULL){
 		Inorder(fExe);
 	}
+
 	else{
 		Shell* temp = fExe;
-		while(temp->parent != NULL){
+		while (temp->parent != NULL) {
 			temp = temp->parent;
 		}
+
 		Inorder(temp);
 	}
 }
 void Shell::Inorder(Shell* Node){
-	if(Node != NULL){
+	if (Node != NULL) {
 		Inorder(Node->leftChild);
 		cout << " " <<Node->type();
 		Inorder(Node->rightChild);
@@ -132,7 +140,7 @@ void Shell::run(Shell* fExe) {
 	}
 	
 	else{
-		while(temp->parent != NULL) {
+		while (temp->parent != NULL) {
 			
 			temp = temp->parent;
 		}
@@ -143,18 +151,18 @@ void Shell::run(Shell* fExe) {
 
 
 void Shell::runInorder(Shell* Node) {
-	if(Node != NULL) {
+	if (Node != NULL) {
 		if (Node->type() == "exit" || Node->type() == "Exit") {
 			return;
 		} 
 		runInorder(Node->leftChild);
 		Node->execute(Node->type());
-		if(!Node->get_subTree()){
+		if (!Node->get_subTree()) {
 			subTreeCounter = 1;
 		}	
 		//checks if current Node is ";"
-		if(Node->type() == ";") {
-			if(!Node->get_subTree()) {
+		if (Node->type() == ";") {
+			if (!Node->get_subTree()) {
 				++mainCounter;
 			}
 			runInorder(Node->rightChild);
@@ -162,18 +170,18 @@ void Shell::runInorder(Shell* Node) {
 			return;
 		}
 		//checks if current Node is "||"
-		if(Node->type() == "||") {
-			if(!Node->get_subTree()) {
+		if (Node->type() == "||") {
+			if (!Node->get_subTree()) {
                                 ++mainCounter;
                         }
 
-			if(Node->leftChild->evaluator()) {
+			if (Node->leftChild->evaluator()) {
 				Node->set_evaluator(true);
 				return;
 			}
 			else {
 				runInorder(Node->rightChild);
-				if(Node->rightChild->evaluator()) {
+				if (Node->rightChild->evaluator()) {
 					Node->set_evaluator(true);
 					return;
 				}
@@ -184,14 +192,14 @@ void Shell::runInorder(Shell* Node) {
 			}
 		}
 		//checks if current Node is "&&"
-		if(Node->type() == "&&") {
-			if(!Node->get_subTree()) {
+		if (Node->type() == "&&") {
+			if (!Node->get_subTree()) {
                                 ++mainCounter;
                         }
 
-			if(Node->leftChild->evaluator()) {	
+			if (Node->leftChild->evaluator()) {	
 				runInorder(Node->rightChild);
-				if(Node->rightChild->evaluator()) {
+				if (Node->rightChild->evaluator()) {
 					Node->set_evaluator(true);
 					return; 
 				}
@@ -213,12 +221,12 @@ void Shell::runInorder(Shell* Node) {
 void Shell:: deleteTree(Shell* fExe) {
 	Shell* temp = fExe;
 	
-	if(fExe->parent == NULL) {
+	if (fExe->parent == NULL) {
 		deleteInorder(fExe);
 	}
 	
 	else {
-		while(temp->parent != NULL) {
+		while (temp->parent != NULL) {
 			temp = temp->parent;
 		}
 		deleteInorder(temp);
@@ -226,7 +234,7 @@ void Shell:: deleteTree(Shell* fExe) {
 }
 
 void Shell::deleteInorder(Shell* Node) {
-	if(Node != NULL) {
+	if (Node != NULL) {
 		deleteInorder(Node->leftChild);
 		deleteInorder(Node->rightChild);
 		delete Node;
@@ -240,7 +248,7 @@ void Shell::testNodeInsert(Shell* fExe, Shell* testNode){
 Shell* Shell::getParent(Shell* subfExe){
 	Shell* temp = subfExe;
 	
-	while(temp->parent != NULL){
+	while (temp->parent != NULL) {  
 		temp = temp->parent;
 	}
 	return temp;
@@ -253,13 +261,9 @@ void Shell::connectTrees(Shell* root, Shell* subRoot){
 Shell* Shell::getFExe(Shell* root){
 	Shell* temp = root;
 	
-	while(temp->leftChild != NULL){
+	while (temp->leftChild != NULL) {
 		temp = temp->leftChild;
 	}
 	return temp;
 
 }
-
-
-
-	
