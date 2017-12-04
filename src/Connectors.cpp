@@ -27,43 +27,7 @@ string Connectors::type(){
 }
 
 void Connectors::execute(string cntr) {
-/*
-			}
-			else {
-				this->success = true;
-				return;
-			}
-		}
-	}
-
-	if(this->cntr == "||") {
-		if(this->leftChild->evaluator() == true) {
-			cout << "Left Child Successful" << endl;
-			this->success = true;
-			return;
-		}
-		else {
-			this->rightChild->execute(this->rightChild->type());
-			if(this->rightChild->evaluator() == false){
-				this->success = false;
-				return;
-			}
-			else{
-				this->success = true;
-				return;
-			}
-		}
-	}
-	
-	if(this->cntr == ";") {
-		this->rightChild->execute(this->rightChild->type());
-		success = true;
-		return;
-	}
-	
-	if(this->cntr == "test") {
-		cout << "TEST CONNECTOR BUILT" << endl;	
-	}
-*/
+	if(cntr == "|") {
+		
 }
 
