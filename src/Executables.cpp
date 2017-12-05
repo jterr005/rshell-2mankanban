@@ -15,6 +15,17 @@ string Executables::type() {
 	return argmnt;
 }
 
+bool Executables::isParentPipe() {
+	if(parent->type() == "|") {
+		return true;
+	}
+	
+	else {
+		return false;
+	}
+
+}
+
 void Executables::execute( string cmd ) {
 	int i = 0;
 	int size = 0;
@@ -65,33 +76,51 @@ void Executables::execute( string cmd ) {
 	
 	//begins actual processing of cmd
 	pid_t pid = fork();
+	int fds[2];
+	int check;
 
-	if ( pid == 0 ) { //CHILD PROCESS
-		execvp ( argmts[ 0 ], argmts );
-		perror ( "execvp failed: " );
-		exit ( -1 );
+	check = pipe(fds);
+	
+	if(check == -1) {
+		perror("piping failed: ");
+		exit(1);
 	}
 	
-	else if ( pid > 0 ) { //PARENT PROCESS
+	//CONTINUE CODING HERE JASON
+	
+	if ( isParentPipe() ) {
 		
-		if ( waitpid( pid, &status, 0 ) == -1 ) {
-			perror( "Wait: " );
-			this->success = false;
-		}
-		
-		if ( WEXITSTATUS( status ) && WIFEXITED( status ) != 0 ) {
-			this->success = false;
-		}
-		
-		else { //if the process was successful, this node's success is set to true
-                	this->success = true;
-                	return;
-        	}	
-		return;
 	}
 	
-	else if ( pid < 0 ) {
-		return;
+	else {	
+		if ( pid == 0 ) { //CHILD PROCESS
+			execvp ( argmts[ 0 ], argmts );
+			perror ( "execvp failed: " );
+			exit ( -1 );
+		}
+	
+		else if ( pid > 0 ) { //PARENT PROCESS	
+			if ( waitpid( pid, &status, 0 ) == -1 ) {
+				perror( "Wait: " );
+				this->success = false;
+			}
+			
+			if ( WEXITSTATUS( status ) && WIFEXITED( status ) != 0 ) {
+				this->success = false;
+			}
+		
+			else { //if the process was successful, this node's success is set to true
+                		this->success = true;
+                		return;
+        		}	
+			
+			return;
+		}
+		
+		else if ( pid < 0 ) {
+			return;
+		}
+
 	}
 
 }

@@ -12,6 +12,7 @@ class Executables : public Shell {
 		Executables(std::string input);
 		void execute(std::string);
 		std::string type();
+		bool isParentPipe();
 };
 #endif
 

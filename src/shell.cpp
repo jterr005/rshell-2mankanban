@@ -9,6 +9,7 @@ using namespace std;
 
 Shell::Shell(){
         this->prompt = '$';
+	this->newInput = "";
         this->success = 1;
 	this->subTree = false;
 	this->parent = NULL;
@@ -98,7 +99,7 @@ void Shell::subTreeInsert(Shell* subfExe, Shell* node){
 	else if (type == "" || type == " ") {
                 //cout << " EMPTY NODE!!!!!!";
         }
-	else{
+	else {
 		//cout << " sub arg statement";
 		Shell* temp = subfExe;
 		while (temp->parent != NULL) {
@@ -110,12 +111,12 @@ void Shell::subTreeInsert(Shell* subfExe, Shell* node){
 	}
 }
 
-void Shell::display(Shell* fExe){
-	if (fExe->parent == NULL){
+void Shell::display(Shell* fExe) {
+	if (fExe->parent == NULL) {
 		Inorder(fExe);
 	}
 
-	else{
+	else {
 		Shell* temp = fExe;
 		while (temp->parent != NULL) {
 			temp = temp->parent;
@@ -124,6 +125,7 @@ void Shell::display(Shell* fExe){
 		Inorder(temp);
 	}
 }
+
 void Shell::Inorder(Shell* Node){
 	if (Node != NULL) {
 		Inorder(Node->leftChild);
@@ -191,6 +193,7 @@ void Shell::runInorder(Shell* Node) {
 				}
 			}
 		}
+		
 		//checks if current Node is "&&"
 		if (Node->type() == "&&") {
 			if (!Node->get_subTree()) {
@@ -218,7 +221,7 @@ void Shell::runInorder(Shell* Node) {
 	return;
 }
 
-void Shell:: deleteTree(Shell* fExe) {
+void Shell::deleteTree(Shell* fExe) {
 	Shell* temp = fExe;
 	
 	if (fExe->parent == NULL) {
@@ -241,11 +244,14 @@ void Shell::deleteInorder(Shell* Node) {
 	}
 	return;
 }
-void Shell::testNodeInsert(Shell* fExe, Shell* testNode){
+
+void Shell::testNodeInsert(Shell* fExe, Shell* testNode) {
 	fExe->leftChild = testNode;
 	testNode->parent = fExe;
+
 }
-Shell* Shell::getParent(Shell* subfExe){
+
+Shell* Shell::getParent(Shell* subfExe) {
 	Shell* temp = subfExe;
 	
 	while (temp->parent != NULL) {  
@@ -253,17 +259,21 @@ Shell* Shell::getParent(Shell* subfExe){
 	}
 	return temp;
 }
-void Shell::connectTrees(Shell* root, Shell* subRoot){
+
+void Shell::connectTrees(Shell* root, Shell* subRoot) {
 	root->rightChild = subRoot;
 	subRoot->parent = root;
 
 }
-Shell* Shell::getFExe(Shell* root){
+
+Shell* Shell::getFExe(Shell* root) {
 	Shell* temp = root;
 	
 	while (temp->leftChild != NULL) {
 		temp = temp->leftChild;
 	}
+
 	return temp;
 
 }
+

@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
+#include <stdlib.h>
 
 extern int mainCounter;
 extern int subTreeCounter;
@@ -15,6 +16,7 @@ class Shell {
 		char prompt;
 		bool success;
 		bool subTree;
+		string newInput;
 		Shell* parent;
 		Shell* rightChild;
 		Shell* leftChild;
