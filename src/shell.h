@@ -17,7 +17,7 @@ class Shell {
 		char prompt;
 		bool success;
 		bool subTree;
-		string newInput;
+		std::string newInput;
 		Shell* parent;
 		Shell* rightChild;
 		Shell* leftChild;
@@ -43,6 +43,10 @@ class Shell {
 		void set_subTree(bool);
 		bool get_subTree();
 		Shell* getFExe(Shell* root);
+		Shell* getRightChild();
+		Shell* getLeftChild();
+		std::string getNewInput();
+		void setNewInput(std::string);
 		
 };
 #endif

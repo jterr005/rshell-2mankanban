@@ -86,18 +86,63 @@ void Executables::execute( string cmd ) {
 		exit(1);
 	}	
 	
-	if ( isParentPipe() && this->parent->leftChild == this ) {
+	//If a left child, executes command but instead of outputing 
+	//results to screen, it saves the output in a string that is 
+	//used as the input for this argument's parent's right child
+	if ( isParentPipe() && this->parent->getLeftChild() == this ) {
+		cout << "ENTERED PIPE IF STATEMENT BOOIIIIIII" << endl;
 		if(pid == 0) { //CHILD PROCESS
-			int savestdOut = dub(1);
-			dub2(1, fds[1]);
+			//Forces execute's output to be written into the WRITE side of the pipe
+			//int savestdOut = dup(1);
+			dup2(fds[1], 1);
+			close(fds[0]);
+
+			//Execute's function
 			execvp(argmts[0], argmts);
 			perror("execvp failed: ");
 			exit(-1);
 		}
 		
-		else if(pid > 0) { //PARENT PROCESS
-			if(waitpid(pid, &status, 0) == -1) {
+		else if (pid > 0) { //PARENT PROCESS
+			if (waitpid(pid, &status, 0) == -1) {
+				perror("Wait: ");
+				this->success = false;
+			}
+			
+			if (WEXITSTATUS( status ) && WIFEXITED( status ) != 0 ) {
+                                this->success = false;
+                        }
+
+			else {
+				//Forces parent process to READ from child's WRITE side of the pipe
+				//int savestdIn = dup(0);
+				dup2(fds[0], 0);
+				close(fds[1]);
+				char buffer[4096];
+				int i = 0;
+				stringstream ss;
 				
+				//Pushes READ part of pipe into parent connector's newInput string
+				while (read(fds[0], buffer, 4096) > 0) {
+					ss << buffer[i];
+					++i;
+				}
+				
+				string tempInput = ss.str();
+				this->parent->setNewInput(tempInput);
+				this->success = true;
+				return;
+
+			}
+			
+			return;
+	
+		}
+		 
+		else if ( pid < 0 ) {
+                        return;
+                }
+
 	}
 	
 	else {

@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include "shell.h"
 #include "Connectors.h"
 #include "Executables.h"
@@ -32,6 +31,22 @@ void Shell::set_subTree(bool statement) {
 bool Shell::get_subTree() {
 	return this->subTree;
 }
+
+Shell* Shell::getRightChild() {
+	return this->rightChild;
+}
+
+Shell* Shell::getLeftChild() {
+	return this->leftChild;
+}
+
+string Shell::getNewInput() {
+	return this->newInput;
+}
+
+void Shell::setNewInput(string input) {
+	this->newInput = input;
+}	
 
 void Shell::insert(Shell* fExe, Shell* Node){
 	//cout << " entered insert function";
