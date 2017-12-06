@@ -84,15 +84,23 @@ void Executables::execute( string cmd ) {
 	if(check == -1) {
 		perror("piping failed: ");
 		exit(1);
-	}
+	}	
 	
-	//CONTINUE CODING HERE JASON
-	
-	if ( isParentPipe() ) {
+	if ( isParentPipe() && this->parent->leftChild == this ) {
+		if(pid == 0) { //CHILD PROCESS
+			int savestdOut = dub(1);
+			dub2(1, fds[1]);
+			execvp(argmts[0], argmts);
+			perror("execvp failed: ");
+			exit(-1);
+		}
 		
+		else if(pid > 0) { //PARENT PROCESS
+			if(waitpid(pid, &status, 0) == -1) {
+				
 	}
 	
-	else {	
+	else {
 		if ( pid == 0 ) { //CHILD PROCESS
 			execvp ( argmts[ 0 ], argmts );
 			perror ( "execvp failed: " );

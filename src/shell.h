@@ -7,6 +7,7 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <stdlib.h>
+#include <fcntl.h>
 
 extern int mainCounter;
 extern int subTreeCounter;
