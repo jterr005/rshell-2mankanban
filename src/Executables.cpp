@@ -27,6 +27,8 @@ bool Executables::isParentPipe() {
 }
 
 void Executables::execute( string cmd ) {
+	cout << "Entered execute function" << endl;
+	
 	int i = 0;
 	int size = 0;
 	int status = 0;
@@ -73,31 +75,91 @@ void Executables::execute( string cmd ) {
 	}
 	
 	argmts[ i ] = NULL;
+	int fds[2];
+        int check;
+	
+        check = pipe(fds);
 	
 	//begins actual processing of cmd
 	pid_t pid = fork();
-	int fds[2];
-	int check;
-
-	check = pipe(fds);
+	
+	//cout << "THIS IS THE PIPE INT BITCH: " << check << endl;
 	
 	if(check == -1) {
 		perror("piping failed: ");
 		exit(1);
-	}	
+	}
 	
-	if ( isParentPipe() && this->parent->leftChild == this ) {
+	//If a left child, executes command but instead of outputing 
+	//results to screen, it saves the output in a string that is 
+	//used as the input for this argument's parent's right child
+	if ( /* isParentPipe() && this->parent->getLeftChild() == this*/ true ) {
+		cout << "ENTERED PIPE IF STATEMENT BOOIIIIIII" << endl;
 		if(pid == 0) { //CHILD PROCESS
-			int savestdOut = dub(1);
-			dub2(1, fds[1]);
+			//Forces execute's output to be written into the WRITE side of the pipe
+			//int savestdOut = dup(1);
+			cout << "ABOUT TO CHILD START AT DUP2()" << endl;
+			//int savestdout = dup(1);
+			dup2(1, fds[1]);
+			cout << fds[1] << endl;
+			cout << "Passed child dup2()" << endl;
+			close(fds[0]);
+			//cout << "Passed child close(fds[0])" << endl;
+
+			//Execute's function
 			execvp(argmts[0], argmts);
 			perror("execvp failed: ");
 			exit(-1);
 		}
 		
-		else if(pid > 0) { //PARENT PROCESS
-			if(waitpid(pid, &status, 0) == -1) {
+		else if (pid > 0) { //PARENT PROCESS
+			cout << "about to do parent waitpid()" << endl;
+			if (waitpid(pid, &status, 0) == -1) {
+				perror("Wait: ");
+				this->success = false;
+			}
+			
+			if (WEXITSTATUS( status ) && WIFEXITED( status ) != 0 ) {
+                                this->success = false;
+                        }
+
+			else {
+				//Forces parent process to READ from child's WRITE side of the pipe
+				//int savestdIn = dup(0);
+				cout << "ABOUT TO PARENT START AT DUP2()" << endl;
+				dup2(0, fds[0]);
+				cout << "dup2() passed. Now about to start parent close(fds[1])" << endl;
+				close(fds[1]);
+				char buffer[4096];
+				int i = 0;
+				stringstream ss;
 				
+				cout << "close() passed and now about to enter parent read()" << endl;
+				//Pushes READ part of pipe into parent connector's newInput string
+				while (read(fds[0], buffer, 4096) > 0) {
+					cout << "doing something" << buffer[i] <<  endl;
+					ss << buffer[i];
+					++i;
+				}
+				
+				string tempInput = ss.str();
+				this->parent->setNewInput(tempInput);
+				cout << "THIS IS WHAT IS IN setNewInput: " << tempInput << endl;
+				this->success = true;
+				close(0);
+				close(1);
+				return;
+
+			}
+			
+			return;
+	
+		}
+		 
+		else if ( pid < 0 ) {
+                        return;
+                }
+
 	}
 	
 	else {
