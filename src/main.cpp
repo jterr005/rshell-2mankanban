@@ -44,7 +44,7 @@ int main(int, char**){
 		continue;
 	}
 //checks for () / [] inbalance
-	char_separator<char> sep("","[]()|&;");
+	char_separator<char> sep("","[]()|&;<>");
         tokenizer<char_separator<char> > errorTokens(input,sep);
         for(tokenizer<char_separator<char> >::iterator it = errorTokens.begin();it != errorTokens.end();++it){
 		if(*it == "(") {
@@ -80,19 +80,37 @@ int main(int, char**){
 	}
         
 
-    	char_separator<char> errorSep("", "|&;[]()#");
+    	char_separator<char> errorSep("", "|&;[]()#<>");
 	tokenizer<char_separator<char> > tokens(input,errorSep);	
 	for(tokenizer<char_separator<char> >::iterator it = tokens.begin();it != tokens.end();++it){
 		cout << *it;
 
-		if(*it == "&" || *it == "|" || *it == ";"){
-				cout << " CTR ";
-				string ctr = *it;
+		if(*it == "&" || *it == "|" || *it == ";" || *it == "<" || *it == ">"){
+			//cout << " CTR ";
+			string ctr = *it;
+			tokenizer<char_separator<char> >::iterator itNext = it;
+			++itNext;
+			if(*it == "&" || *it == "|" || *it == ">"){
+				string ctr2 = *it;
+				if(*itNext == "&" || *itNext == "|" || *itNext == ">"){
+					cout << *itNext;
+					++it;
+					ctr2 += *itNext;
+				}
+				cout << " CTR";
+				Connectors* node = new Connectors(ctr2);
+                                cout << "NODE created";
+                                fExe->insert(fExe,node);
+			}	
+			else{
+				cout << "CTR";
 				Connectors* node = new Connectors(ctr);
 				cout << "NODE created";
 				fExe->insert(fExe,node);
-			if(*it == "&" || *it == "|"){
+			/*if(*it == "&" || *it == "|"){
 				++it;			
+			}
+			*/
 			}	
 		}
 		else if(*it == "" || *it == " "){
