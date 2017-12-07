@@ -174,18 +174,33 @@ int main(int, char**){
 			//cout << " tokenizer worked" << endl;
        			 for(tokenizer<char_separator<char> >::iterator subIt = subTokens.begin();subIt != subTokens.end();++subIt){
 				cout << *subIt;
-				
-				if(*subIt == "&" || *subIt == "|" || *subIt == ";"){
-                                	cout << " SUB CTR ";
+			
+				if(*subIt == "&" || *subIt == "|" || *subIt == ";" || *subIt == "<" || *subIt == ">"){
                                 	string ctr = *subIt;
-                                	Connectors* node = new Connectors(ctr);
-					node->set_subTree(true);
-                                	cout << "NODE created";
-                                	subfExe->insert(subfExe,node);
+					tokenizer<char_separator<char> >::iterator subItNext = subIt;
+					++subItNext;
+					if(*subIt == "&" || *subIt == "|" || *subIt == "<" || *subIt == ">"){
+						string ctr2 = *subIt;
+						if(*subItNext == "&" || *subItNext == "|" || *subItNext == ">"){
+							cout << *subItNext;
+							++subIt;
+							ctr2 += *subItNext;
+						}
+						cout << " SUBROOT CTR";
+						Connectors* node = new Connectors(ctr);
+                                                node->set_subTree(true);
+                                                cout << "NODE created";
+                                                subfExe->insert(subfExe,node);
 
-                        		if(*subIt == "&" || *subIt == "|"){
-                                		++subIt;
-                        		}
+						
+					}
+					else{
+						cout << " SUBROOT CTR";
+                                		Connectors* node = new Connectors(ctr);
+						node->set_subTree(true);
+                                		cout << "NODE created";
+                                		subfExe->insert(subfExe,node);
+					}
                 		}
 				else if(*subIt == "(" || *subIt == ")" || *subIt == "" || *subIt == " "){
 					
