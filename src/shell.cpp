@@ -37,7 +37,7 @@ void Shell::insert(Shell* fExe, Shell* Node){
 	cout << " entered insert function";
 	
 	string type = Node->type();
-	 if (type == "&&" || type  == "||" || type == ";" ){
+	 if (type == "&&" || type  == "||" || type == ";" || type == "<" || type == ">>" || type == ">" || type == "|" ){
 		cout << " connector statement";
 		if(this->parent == NULL){
 		//cout << " IF ";
