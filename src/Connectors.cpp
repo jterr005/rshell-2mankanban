@@ -27,6 +27,6 @@ string Connectors::type() {
 }
 
 void Connectors::execute(string cntr) {
-
+	if(cntr == ">"
 }
 

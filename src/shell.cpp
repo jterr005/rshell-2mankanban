@@ -231,6 +231,14 @@ void Shell::runInorder(Shell* Node) {
 				return;
 			}
 		}
+	
+		if (Node->type() == "<") {
+			if(!Node->get_subTree()) {
+				++mainCounter;
+			}
+			
+			Node->execute();
+		}
 						
 	}
 	return;

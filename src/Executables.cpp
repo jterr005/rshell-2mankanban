@@ -15,20 +15,40 @@ string Executables::type() {
 	return argmnt;
 }
 
-bool Executables::isParentPipe() {
-	if(parent->type() == "|") {
-		return true;
+bool Executables::isParentRedirection() {
+	if(this->parent != NULL) {
+		if(parent->type() == "|") {
+			return true;
+		}
+		
+		if(parent->type() == "<") {
+			return true;
+		}
+		
+		if(parent->type() == ">") {
+			return true;
+		}
+		
+		if(parent->type() == ">>") {
+			return true;
+		}
+		
+		else {
+			return false;
+		}
 	}
 	
-	else {
+	else { 
 		return false;
 	}
 
 }
 
 void Executables::execute( string cmd ) {
-	cout << "Entered execute function" << endl;
-	
+	if(isParentRedirection()) {
+		return;
+	}
+
 	int i = 0;
 	int size = 0;
 	int status = 0;
@@ -93,7 +113,7 @@ void Executables::execute( string cmd ) {
 	//If a left child, executes command but instead of outputing 
 	//results to screen, it saves the output in a string that is 
 	//used as the input for this argument's parent's right child
-	if ( /* isParentPipe() && this->parent->getLeftChild() == this*/ true ) {
+	if ( isParentRedirection() && this->parent->getLeftChild() == this  ) {
 		cout << "ENTERED PIPE IF STATEMENT BOOIIIIIII" << endl;
 		if(pid == 0) { //CHILD PROCESS
 			//Forces execute's output to be written into the WRITE side of the pipe
