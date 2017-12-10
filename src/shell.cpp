@@ -173,7 +173,7 @@ void Shell::runInorder(Shell* Node) {
 			return;
 		} 
 		runInorder(Node->leftChild);
-		Node->execute(Node->type());
+		
 		if (!Node->get_subTree()) {
 			subTreeCounter = 1;
 		}	
@@ -211,6 +211,7 @@ void Shell::runInorder(Shell* Node) {
 		
 		//checks if current Node is "&&"
 		if (Node->type() == "&&") {
+			cout << "Entered && cntr" << endl;
 			if (!Node->get_subTree()) {
                                 ++mainCounter;
                         }
@@ -237,9 +238,37 @@ void Shell::runInorder(Shell* Node) {
 				++mainCounter;
 			}
 			
-			Node->execute();
+			Node->execute(Node->type());
+			Node->set_evaluator(true);
+			return;
 		}
-						
+		
+		if(Node->type() == ">>") {
+			if(!Node->get_subTree()) {
+				++mainCounter;
+			}
+			
+			Node->execute(Node->type());
+			Node->set_evaluator(true);
+			return;
+		}
+		
+		if(Node->type() == ">") {
+                        if(!Node->get_subTree()) {
+                                ++mainCounter;
+                        }
+
+                        Node->execute(Node->type());
+                        Node->set_evaluator(true);
+                        return;
+                }
+
+		if(Node->type() == "") {
+			cout << "empty" << endl;
+			return;
+		}
+		
+		Node->execute(Node->type());				
 	}
 	return;
 }
