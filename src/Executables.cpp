@@ -103,8 +103,6 @@ void Executables::execute (string cmd) {
 	//begins actual processing of cmd
 	pid_t pid = fork();
 
-	//cout << "THIS IS THE PIPE INT BITCH: " << check << endl;
-
 	if(check == -1) {
 		perror("piping failed: ");
 		exit(1);
@@ -114,15 +112,9 @@ void Executables::execute (string cmd) {
 	//results to screen, it saves the output in a string that is
 	//used as the input for this argument's parent's right child
 	if ( isParentRedirection() && this->parent->getLeftChild() == this  ) {
-		//cout << "ENTERED PIPE IF STATEMENT BOOIIIIIII" << endl;
 		if(pid == 0) { //CHILD PROCESS
 			//Forces execute's output to be written into the WRITE side of the pipe
-			//int savestdOut = dup(1);
-			//cout << "ABOUT TO CHILD START AT DUP2()" << endl;
-			//int savestdout = dup(1);
 			dup2(1, fds[1]);
-			//cout << fds[1] << endl;
-			//cout << "Passed child dup2()" << endl;
 			close(fds[0]);
 			//cout << "Passed child close(fds[0])" << endl;
 
@@ -133,7 +125,6 @@ void Executables::execute (string cmd) {
 		}
 
 		else if (pid > 0) { //PARENT PROCESS
-			//cout << "about to do parent waitpid()" << endl;
 			if (waitpid(pid, &status, 0) == -1) {
 				perror("Wait: ");
 				this->success = false;
@@ -145,19 +136,14 @@ void Executables::execute (string cmd) {
 
 			else {
 				//Forces parent process to READ from child's WRITE side of the pipe
-				//int savestdIn = dup(0);
-				//cout << "ABOUT TO PARENT START AT DUP2()" << endl;
 				dup2(0, fds[0]);
-				//cout << "dup2() passed. Now about to start parent close(fds[1])" << endl;
 				close(fds[1]);
 				char buffer[4096];
 				int i = 0;
 				stringstream ss;
 
-				//cout << "close() passed and now about to enter parent read()" << endl;
 				//Pushes READ part of pipe into parent connector's newInput string
 				while (read(fds[0], buffer, 4096) > 0) {
-					cout << "doing something" << buffer[i] <<  endl;
 					ss << buffer[i];
 					++i;
 				}
